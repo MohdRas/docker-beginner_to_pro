@@ -10,17 +10,21 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 - earlier we need "deploment binary", "dependencies", "configurations" to deploy an application. But with containers, just run this container image with these options.
 # Technology overview
 - containers
-  - "lightweight", "standalone", "executable" PACKAGE of software. This PACKAGE include "everything to run an application".
+  - "lightweight", "standalone", "executable" package of software. This PACKAGE include "everything to run an application".
 - Open Container Initiative - OCI
   - Specification for containers.
     - Runtime
       - How you take an image and run it in a container ? 
     - Image
-      - what format and metadata an image should include?
+      - What format and metadata an image should include?
     - Distribution
       - How those images should be distributed, registry, pulling & pushing the images.
   - Docker, Google VMWare, Microsoft, Dell has their "own implemention" of this "specification for containers".
 - dockers
+- Evaluation of Virtualization
+  - Bare Metal
+  - Vitual Machine
+  - Containers
 
 # Installation / Setup -  Hello World
 
