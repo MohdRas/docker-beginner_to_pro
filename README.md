@@ -19,7 +19,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
       - What format and metadata an image should include?
     - Distribution
       - How those images should be distributed, registry, pulling & pushing the images.
-  - Docker, Google VMWare, Microsoft, Dell has their "own implemention" of this "specification for containers".
+  - Docker, Google, VMWare, Microsoft & Dell has their "own implemention" of this "specification for containers".
 - dockers
 - Evaluation of Virtualization
   - Bare Metal
