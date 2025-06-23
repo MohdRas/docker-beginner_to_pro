@@ -23,7 +23,9 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
   - Docker, Google, VMWare, Microsoft & Dell has their "own implemention" of this "specification for containers".
 - dockers
 - Evaluation of Virtualization
-  - https://medium.com/techmormo/what-is-virtualization-bare-metal-vs-virtual-machines-vs-containers-f3d8be22ad34
+  - https://medium.com/@dncgr8/vms-vs-container-191ed90c8019
+  - https://erik-engheim.medium.com/containers-vs-vms-a80fe0f9a549
+  - https://mkaschke.medium.com/virtual-machine-vm-vs-container-13ab51f4c177
   
   - Bare Metal
   - Vitual Machine
