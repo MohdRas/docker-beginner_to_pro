@@ -30,14 +30,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
     - each VM has its own Guest OS and it's Kernel through HYPERVISOR ( Type1 or Type2 )
     - Hypervisors can sit directly on top of the hardware (type-1) or on top of an OS (type-2)
     - multiple OS instances run on single host machine.
-    - virtualization
-      - A Hypervisor is a software that imitates a particular piece of computer hardware or the entire computer.
-      - Hypervisor allow the available physical resources to be partitioned into multiple virtual ones, called Virtual Machines (VMs).
-      - The computer that runs a hypervisor is called the Host System, and the VMs created and managed by the hypervisor are called the Guest Systems.
-      - PROBLEM
+    - A Hypervisor is a software that imitates a particular piece of computer hardware or the entire computer.
+    - Hypervisor allow the available physical resources to be partitioned into multiple virtual ones, called Virtual Machines (VMs).
+    - The computer that runs a hypervisor is called the Host System, and the VMs created and managed by the hypervisor are called the Guest Systems.
+    - PROBLEM
           - each VM virtualizes an entire operating system and its underlying hardware.
   - Containers
-    - In summary, the reduced isolation and dependence on the host OS of containers bring both advantages in terms of performance and efficiency, as well as certain disadvantages, particularly in terms of security and portability. These factors must be considered when deciding whether to use containers or VMs for a particular application.
     - All containers running on a host machine, share the OS kernel of the Host System, and only contain the application(s) and their libraries and dependencies.
     - each container uses Host OS and it's Kernel through Docker Engine.
     - Faster STARTUP, Less RESOURCES (lightweight)
@@ -50,6 +48,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
       - CLI (`docker`): Provides users with a command-line interface for interacting with Docker.
       - Docker Compose : Allows you to define and run multi-container Docker applications.
       - Docker Swarm : A clustering and orchestration tool for Docker containers.
+  - In summary, the reduced isolation and dependence on the host OS of containers bring both advantages in terms of performance and efficiency, as well as certain disadvantages, particularly in terms of security and portability. These factors must be considered when deciding whether to use containers or VMs for a particular application.
 # Installation / Setup -  Hello World
 
 # Using 3rd Party Containers
