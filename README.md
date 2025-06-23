@@ -36,7 +36,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
     - multiple OS instances run on single host machine.
     - A Hypervisor is a software that imitates a particular piece of computer hardware or the entire computer.
     - Hypervisor allow the available physical resources to be partitioned into multiple virtual ones, called Virtual Machines (VMs).
-    - The computer that runs a hypervisor is called the Host System, and the VMs created and managed by the hypervisor are called the Guest Systems.
+    - The computer that runs a hypervisor is called the Host System(laptop, server, vm on ec2), and the VMs created and managed by the hypervisor are called the Guest Systems.
     - PROBLEM
           - each VM virtualizes an entire operating system and its underlying hardware.
   - Containers
