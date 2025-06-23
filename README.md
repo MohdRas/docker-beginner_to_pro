@@ -27,18 +27,29 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
   
   - Bare Metal
   - Vitual Machine
-    - each VM has its own OS and OS kernel. Which is called Guest OS & Guest OS Kernel.
+    - each VM has its own Guest OS and it's Kernel through HYPERVISOR ( Type1 or Type2 )
+    - Hypervisors can sit directly on top of the hardware (type-1) or on top of an OS (type-2)
+    - multiple OS instances run on single host machine.
     - virtualization
-      - A Hypervisor is a software that imitates a particular piece of computer hardware or the entire computer
-      - allowing the available physical resources to be partitioned into multiple virtual ones, called Virtual Machines (VMs).
+      - A Hypervisor is a software that imitates a particular piece of computer hardware or the entire computer.
+      - Hypervisor allow the available physical resources to be partitioned into multiple virtual ones, called Virtual Machines (VMs).
       - The computer that runs a hypervisor is called the Host System, and the VMs created and managed by the hypervisor are called the Guest Systems.
-      - Hypervisors can sit directly on top of the hardware (type-1) or on top of an OS (type-2)
       - PROBLEM
           - each VM virtualizes an entire operating system and its underlying hardware.
   - Containers
-    - Containers virtualize just the operating system, instead of virtualizing the the entire physical machine like VMs.
-    - All containers running on a host machine share the OS kernel of the Host System, and only contain the application(s) and their libraries and dependencies.
-    - This makes them extremely lightweight & fast!
+    - In summary, the reduced isolation and dependence on the host OS of containers bring both advantages in terms of performance and efficiency, as well as certain disadvantages, particularly in terms of security and portability. These factors must be considered when deciding whether to use containers or VMs for a particular application.
+    - All containers running on a host machine, share the OS kernel of the Host System, and only contain the application(s) and their libraries and dependencies.
+    - each container uses Host OS and it's Kernel through Docker Engine.
+    - Faster STARTUP, Less RESOURCES (lightweight)
+    - Less ISOLATION as compared to VMs.
+    - Host OS COMPATIBILITY ISSUE
+        - Linux container will run on a Linux host, but not on a Windows host
+    - Docker Engine
+      - Docker Daemon (`dockerd`): Manages Docker objects such as containers, images, networks, and volumes.
+      - REST API: Provides a programmable interface that allows various tools to interact with the Docker daemon.
+      - CLI (`docker`): Provides users with a command-line interface for interacting with Docker.
+      - Docker Compose : Allows you to define and run multi-container Docker applications.
+      - Docker Swarm : A clustering and orchestration tool for Docker containers.
 # Installation / Setup -  Hello World
 
 # Using 3rd Party Containers
