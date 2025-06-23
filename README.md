@@ -26,8 +26,10 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
   - https://medium.com/@dncgr8/vms-vs-container-191ed90c8019
   - https://erik-engheim.medium.com/containers-vs-vms-a80fe0f9a549
   - https://mkaschke.medium.com/virtual-machine-vm-vs-container-13ab51f4c177
+  - https://medium.com/@marco.lindner/kernkonzepte-container-vs-vms-images-container-docker-engine-3eb1e5ac8067
   
   - Bare Metal
+      - Bare Metal
   - Vitual Machine
     - each VM has its own Guest OS and it's Kernel through HYPERVISOR ( Type1 or Type2 )
     - Hypervisors can sit directly on top of the hardware (type-1) or on top of an OS (type-2)
