@@ -71,11 +71,11 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 # Docker networking
 - https://www.youtube.com/watch?v=5grbXvV_DSk&t=564s
 - https://www.youtube.com/watch?v=bKFMS5C4CG0
-- docker creates 3 network drivers or network types (Bridge, None, Host) automatically.
-- "driver type" = Bridge, None, Host
+- docker creates 3 network driver (network types) automatically.
+- 3 "driver" or "network type" is Bridge, None, Host.
 - built-in DNS server run on IP 171.17.0.11
     - DNS server will resoLVE CONTAINER_NAME to IP_ADDRESS.
-- bridge driver
+- defualt bridge driver ( network type )
     - default network
         - IP 172.17.0.1 aasigned to interface "docker0"
         - IP 172.17.0.2 aasigned to first container
@@ -84,6 +84,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
         - till 172.17.0.16
     - docker run --rm -d redis
     - to access these containers from outside, we need port binding.
+        - exposing containers to the world using port binding.
         - docker run --rm -d -P 80:80 redis 
     - Container can be accessed in broswer only if port binding done.
         - http://IP_ADDRESS_OF_HOST_MACHINE:80
@@ -113,17 +114,27 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
             - our application(container) want to connect to database (container).
             - after container restart, new IP address will be assiged, so communication using IPs is not correct.
         - SOLUTION
-          - "user-defined" Bridge
+          - "user-defined" Bridge  
+              - "user-defined" network is isolated from all other networks ( default, none & host). can't talk to them.
               - docker network create --driver bridge --subnet 182.8.x.x/16 custom-isolated-network
               - "custom-isolated-network" is the name of the user-defined network.
               - containers of this network communicate with each other using NAMES.
-                  - mysql.connect(CONTAINER_NAME) 
-              - "user-defined" network is isolcated from all other networks ( default, none & host).
-              - we can attach a network to a cotainer as part of the "docker run" command.
-                  - docker run --net custom-isolated-network --it redis
-                  - from inside container, we can execute "ping google.com" OR "ping HOST_MACHINE_IP_ADDRESS"
-                  - but we cannot ping any IP address of the "default" bridge network due to isolation. ping 172.17.0.2 , won't work.
-                  - we can also ping CONTAINER1 from CONTAINER2 or vice-versa. Both containers are attached to the same "user-defined" bridge network.
+                  - mysql.connect(CONTAINER_NAME)
+                  - CONTAINER_1 - docker run --it -d --name redis-container -net user-defined-network redis
+                  - CONTAINER_2 - docker run --it -d --name nginx-container -net user-defined-network nginx
+                  - inside CONTAINER_1 (redis-container) IP 172.17.0.2
+                      - ping nginx-container
+                      - ping google.com
+                      - "ip route" command
+                          - it will show "default via 172.17.0.1" which means routing via interface docker0 ( 172.17.0.1 )
+                   - inside CONTAINER_2 (nginx-container) IP 172.17.0.3
+                        - ping redis-container 
+                        - ping google.com 
+                    - we can attach a network to a cotainer as part of the "docker run" command.
+                    - docker run --net custom-isolated-network --it redis
+                    - from inside container, we can execute "ping google.com" OR "ping HOST_MACHINE_IP_ADDRESS"
+                    - but we cannot ping any IP address of the "default" bridge network due to isolation. ping 172.17.0.2 , won't work.
+                    - we can also ping CONTAINER1 from CONTAINER2 or vice-versa. Both containers are attached to the same "user-defined" bridge network.
               - "docker network ls" command show all networks with details like NETWORK_ID, NAME, DRIVER & SCOPE
               - "ip a | NETWORK_ID" command
                   - show "network interface" details as each network has its own interface.
