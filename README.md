@@ -70,24 +70,38 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 # Docker networking
 - docker creates 3 networks (Bridge, None, Host) automatically.
-- container can reach with names.
-    - mysql.connect(CONTAINER_NAME)
+- "driver type" = Bridge, None, Host
 - built-in DNS server run on IP 171.17.0.11
-    - DNS server will resover CONTAINER_NAME to IP_ADDRESS.
+    - DNS server will resoLVE CONTAINER_NAME to IP_ADDRESS.
 - bridge
-    - docker run --rm -d 80:80 redis
-    - http://IP_ADDRESS_OF_HOST:80
-        - Container can be access in broswer.
     - default network
-      - Docker create interfaces for every bridge network
-          - "docker0" is the interface of the default_bridge network.
-      - 172.17.0.1/16 - IPs of the docker containers.
-    - each conatiner will have internal IP. Containers of this network will communicate using this IP.
-    - to access these container from outside, we need port binding.
-- user-defined Bridge
-    - docker network create --driver bridge --subnet 182.8.x.x/16 custom-isolated-network
-    - docker network ls
-    - docker inspect CONTAINER_ID/NAME
+    - docker run --rm -d redis
+    - containers communicate with each other using their internal IP address.
+        - CHALLENGE
+            -  our application(container) want to connect to database (container).
+            - after container restart, new IP address will be assiged, so communication using IPs is not correct.
+        - SOLUTION
+          - "user-defined" Bridge
+              - docker network create --driver bridge --subnet 182.8.x.x/16 custom-isolated-network
+              - "custom-isolated-network" is the name of the user-defined network.
+              - containers of this network communicate with each other using NAMES.
+                  - mysql.connect(CONTAINER_NAME) 
+              - "docker network ls" command show all networks with details like NETWORK_ID, NAME, DRIVER & SCOPE
+              - "ip a | NETWORK_ID" command
+                  - show "network interface" details as each network has its own interface.
+                  - IPs of "user-defined" bridge network is different than "default" bridge network.
+
+    - to access these containers from outside, we need port binding.
+        - docker run --rm -d -P 80:80 redis
+        - http://IP_ADDRESS_OF_HOST_MACHINE:80
+            - Container can be access in broswer.
+    - "docker inspect CONTAINER_ID" OR "docker inspect CONTAINER_NAME"
+        - network info like "driver type", "IP address of container"
+        - 172.17.0.1/16 - IP address of containers of a default "bridge" network.
+    - "ip a | grep docker0" command
+        - Docker create interfaces for every bridge network
+        - "docker0" is the interface of the default_bridge network.
+
 - overlay network
     - create private overlay network across multiple hosts of a Docker swarm.
     - docker network --driver overlay --subnet 10.0.9.0/24 create my-overlay-network
