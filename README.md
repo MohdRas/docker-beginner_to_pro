@@ -77,19 +77,38 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
     - DNS server will resoLVE CONTAINER_NAME to IP_ADDRESS.
 - bridge driver
     - default network
+        - IP 172.17.0.1 aasigned to interface "docker0"
+        - IP 172.17.0.2 aasigned to first container
+        - IP 172.17.0.3 assigned to second container
+        - and so on...
+        - till 172.17.0.16
     - docker run --rm -d redis
     - to access these containers from outside, we need port binding.
         - docker run --rm -d -P 80:80 redis 
-    - Container can be accessed in broswer.
+    - Container can be accessed in broswer only if port binding done.
         - http://IP_ADDRESS_OF_HOST_MACHINE:80
     - "docker inspect CONTAINER_ID" OR "docker inspect CONTAINER_NAME"
-        - network info like "driver type", "IP address of container"
-    - 172.17.0.1/16
-            - IP address of containers of a default "bridge" network.
+        - docker inspect redis
+        - "redis" is the container name 
+        - show "network" of a container. It will be only one.
+    - "docker inspect NETWORK_ID" OR "docker inspect NETWORK_NAME"
+        - docker inspect bridge 
+        - "bridge" is the name of the network.
+        - show "all containers" of a network. It can be multiple.
     - "ip a | grep docker0" command
         - Docker create interfaces for every bridge network
-        - "docker0" is the interface of the default_bridge network.
+        - "docker0" is the interface of the default_bridge network. It IP is 172.17.0.1
     - containers communicate with each other using their internal IP address.
+        - CONTAINER_1 - docker run --it -d --name redis-container redis
+        - CONTAINER_2 - docker run --it -d --name nginx-container nginx
+        - inside CONTAINER_1 (redis-container) IP 172.17.0.2
+            - ping 172.17.0.3
+            - ping google.com
+            - "ip route" command
+                - it will show "default via 172.17.0.1" which means routing via interface docker0 ( 172.17.0.1 )
+       - inside CONTAINER_2 (nginx-container) IP 172.17.0.3
+            - ping 172.17.0.2 
+            - ping google.com
         - CHALLENGE
             - our application(container) want to connect to database (container).
             - after container restart, new IP address will be assiged, so communication using IPs is not correct.
@@ -102,7 +121,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
               - "user-defined" network is isolcated from all other networks ( default, none & host).
               - we can attach a network to a cotainer as part of the "docker run" command.
                   - docker run --net custom-isolated-network --it redis
-                  - from inside container, we can execute "ping google de" OR "ping HOST_MACHINE_IP_ADDRESS"
+                  - from inside container, we can execute "ping google.com" OR "ping HOST_MACHINE_IP_ADDRESS"
                   - but we cannot ping any IP address of the "default" bridge network due to isolation. ping 172.17.0.2 , won't work.
                   - we can also ping CONTAINER1 from CONTAINER2 or vice-versa. Both containers are attached to the same "user-defined" bridge network.
               - "docker network ls" command show all networks with details like NETWORK_ID, NAME, DRIVER & SCOPE
