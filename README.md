@@ -71,16 +71,27 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 # Docker networking
 - https://www.youtube.com/watch?v=5grbXvV_DSk&t=564s
 - https://www.youtube.com/watch?v=bKFMS5C4CG0
-- docker creates 3 networks (Bridge, None, Host) automatically.
+- docker creates 3 network drivers or network types (Bridge, None, Host) automatically.
 - "driver type" = Bridge, None, Host
 - built-in DNS server run on IP 171.17.0.11
     - DNS server will resoLVE CONTAINER_NAME to IP_ADDRESS.
-- bridge
+- bridge driver
     - default network
     - docker run --rm -d redis
+    - to access these containers from outside, we need port binding.
+        - docker run --rm -d -P 80:80 redis 
+    - Container can be accessed in broswer.
+        - http://IP_ADDRESS_OF_HOST_MACHINE:80
+    - "docker inspect CONTAINER_ID" OR "docker inspect CONTAINER_NAME"
+        - network info like "driver type", "IP address of container"
+    - 172.17.0.1/16
+            - IP address of containers of a default "bridge" network.
+    - "ip a | grep docker0" command
+        - Docker create interfaces for every bridge network
+        - "docker0" is the interface of the default_bridge network.
     - containers communicate with each other using their internal IP address.
         - CHALLENGE
-            -  our application(container) want to connect to database (container).
+            - our application(container) want to connect to database (container).
             - after container restart, new IP address will be assiged, so communication using IPs is not correct.
         - SOLUTION
           - "user-defined" Bridge
@@ -99,16 +110,6 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
                   - show "network interface" details as each network has its own interface.
                   - IPs of "user-defined" bridge network is different than "default" bridge network.
 
-    - to access these containers from outside, we need port binding.
-        - docker run --rm -d -P 80:80 redis
-        - http://IP_ADDRESS_OF_HOST_MACHINE:80
-            - Container can be access in broswer.
-    - "docker inspect CONTAINER_ID" OR "docker inspect CONTAINER_NAME"
-        - network info like "driver type", "IP address of container"
-        - 172.17.0.1/16 - IP address of containers of a default "bridge" network.
-    - "ip a | grep docker0" command
-        - Docker create interfaces for every bridge network
-        - "docker0" is the interface of the default_bridge network.
 
 - Host
     - docker run redis --network host
