@@ -86,6 +86,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
               - "custom-isolated-network" is the name of the user-defined network.
               - containers of this network communicate with each other using NAMES.
                   - mysql.connect(CONTAINER_NAME) 
+              - "user-defined" network is isolcated from all other networks ( default, none & host).
+              - we can attach a network to a cotainer as part of the "docker run" command.
+                  - docker run --net custom-isolated-network --it redis
+                  - from inside container, we can execute "ping google de" OR "ping HOST_MACHINE_IP_ADDRESS"
+                  - but we cannot ping any IP address of the "default" bridge network due to isolation. ping 172.17.0.2 , won't work.
+                  - we can also ping CONTAINER1 from CONTAINER2 or vice-versa. Both containers are attached to the same "user-defined" bridge network.
               - "docker network ls" command show all networks with details like NETWORK_ID, NAME, DRIVER & SCOPE
               - "ip a | NETWORK_ID" command
                   - show "network interface" details as each network has its own interface.
@@ -102,6 +108,15 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
         - Docker create interfaces for every bridge network
         - "docker0" is the interface of the default_bridge network.
 
+- Host
+    - docker run redis --network host
+    - ZERO isolation between container & host.
+    - "container wants to connect to other resources/servicrs on the host"
+    - "this container is like any other application directly deployed on the host without the docker"
+    - "just like a regular application on the host"
+    - we don't need to expose the port.
+    - container uses the network of the host machine.
+    - multiple container cannot be run on the same port.
 - overlay network
     - create private overlay network across multiple hosts of a Docker swarm.
     - docker network --driver overlay --subnet 10.0.9.0/24 create my-overlay-network
@@ -115,10 +130,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
     - run in an isolated network.
 
 
- - Host = docker run redis --network host
-    - container uses the network of the host machine.
-    - no isolation between container & host.
-    - multiple container cannot be run on the same port.
+
    
  
 
