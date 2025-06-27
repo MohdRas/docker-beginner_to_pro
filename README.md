@@ -122,13 +122,14 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
                   - mysql.connect(CONTAINER_NAME)
                   - CONTAINER_1 - docker run --it -d --name redis-container -net user-defined-network redis
                   - CONTAINER_2 - docker run --it -d --name nginx-container -net user-defined-network nginx
-                  - inside CONTAINER_1 (redis-container) IP 172.17.0.2
-                      - ping nginx-container
+                  - inside CONTAINER_1 (redis-container)
+                      - "ping nginx-container"
+                          - possible due to DNS ( Container name to IP)
                       - ping google.com
                       - "ip route" command
-                          - it will show "default via 172.17.0.1" which means routing via interface docker0 ( 172.17.0.1 )
-                   - inside CONTAINER_2 (nginx-container) IP 172.17.0.3
-                        - ping redis-container 
+                   - inside CONTAINER_2 (nginx-container)
+                        - "ping redis-container"
+                            - possible due to DNS ( Container name to IP)
                         - ping google.com 
                     - we can attach a network to a cotainer as part of the "docker run" command.
                     - docker run --net custom-isolated-network --it redis
