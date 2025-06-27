@@ -151,6 +151,8 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
     - we don't need to expose the port.
     - container uses the network of the host machine.
     - multiple container cannot be run on the same port.
+    - Container can be accessed in broswer without port
+        - http://IP_ADDRESS_OF_HOST_MACHINE
 - overlay network
     - create private overlay network across multiple hosts of a Docker swarm.
     - docker network --driver overlay --subnet 10.0.9.0/24 create my-overlay-network
