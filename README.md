@@ -69,6 +69,8 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 # Running Containers
 
 # Docker networking
+- https://www.youtube.com/watch?v=5grbXvV_DSk&t=564s
+- https://www.youtube.com/watch?v=bKFMS5C4CG0
 - docker creates 3 networks (Bridge, None, Host) automatically.
 - "driver type" = Bridge, None, Host
 - built-in DNS server run on IP 171.17.0.11
