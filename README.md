@@ -166,28 +166,28 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
     - run in an isolated network.
 
 
-	# Create Docker volume 
-	PS C:\Windows\System32> docker volume create app-data
+# Create Docker volume 
+		PS C:\Windows\System32> docker volume create app-data
 		- "app-data" is the name of the volume.
 		- "app-data" is the folder created at path (/var/lib/docker/volumes/ : virtual file system of WSL 2 VM)
 		- full path : **/var/lib/docker/volumes/app-data/_data**
 		- Docker is managing every volume on WSL 2 VM.
 		- This volume is created with "local" Driver.
-	
-	# List of Docker volumes
-	PS C:\Windows\System32> docker volume ls
+
+# List of Docker volumes
+		PS C:\Windows\System32> docker volume ls
 		- DRIVER    VOLUME NAME
 		- local     app-data
-	
-	# Inspect Docker volume
-	PS C:\Windows\System32> docker inspect app-data
-	
-	# Mounting **Docker Volume** to a directory **/data** inside container
-	PS C:\Windows\System32> docker run --rm -it --name writer-container --mount "source=app-data,target=/data" alpine sh
-			/ # echo "This is critical production data" > /data/secret.txt
-			/ # exit
-	
-	# Verify Data Persistence
+
+# Inspect Docker volume
+		PS C:\Windows\System32> docker inspect app-data
+
+# Mounting **Docker Volume** to a directory **/data** inside container
+		PS C:\Windows\System32> docker run --rm -it --name writer-container --mount "source=app-data,target=/data" alpine sh
+		/ # echo "This is critical production data" > /data/secret.txt
+		/ # exit
+
+# Verify Data Persistence
 		PS C:\Windows\System32> docker run --rm -it --name reader-container2 --mount "source=app-data,target=/data" alpine sh
 		/ # cat /data/secret.txt
 		This is critical production data
