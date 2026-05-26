@@ -204,11 +204,11 @@ PS C:\Windows\System32> **docker run --rm -it --name reader-container2 --mount "
 - / # cat /data/secret.txt
 - This is critical production data
 
-# remove anonymous volumes
- - **create anonymous volume**
+# Remove "anonymous" volumes
+ - create **anonymous** volume
    - PS C:\Windows\System32> **docker volume create**
    - 042673d7d178724295daebea728edb835e20f157a90b1b7f9646d3bca4485d74  ( anonymous name)
- - **prune ( remove) anonymous volume**
+ - **prune** anonymous volume
    - PS C:\Windows\System32> **docker volume prune**
    - WARNING! This will remove anonymous local volumes not used by at least one container.
    - Are you sure you want to continue? [y/N] y
@@ -221,7 +221,7 @@ PS C:\Windows\System32> **docker run --rm -it --name reader-container2 --mount "
  - In Docker Desktop, go to the Volumes view.
  - You can see the Status column, which shows whether a volume is "In use" by a container or "Unused".
  
-# Remove unused volumes
+# Remove "unused" volumes
 **docker volume rm ( docker volume remove )**
 - To removed "unused" volume.
 - "unused" means => not associated to any container.
