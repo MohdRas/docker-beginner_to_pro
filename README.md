@@ -216,6 +216,11 @@ PS C:\Windows\System32> **docker run --rm -it --name reader-container2 --mount "
    - 042673d7d178724295daebea728edb835e20f157a90b1b7f9646d3bca4485d74
    - 
    - Total reclaimed space: 0B
+   - 
+# To check if a volume is "used" or not
+ - In Docker Desktop, go to the Volumes view.
+ - You can see the Status column, which shows whether a volume is "In use" by a container or "Unused".
+ 
 # Remove unused volumes
 **docker volume rm ( docker volume remove )**
 - To removed "unused" volume.
@@ -228,7 +233,7 @@ PS C:\Windows\System32> **docker run --rm -it --name reader-container2 --mount "
 - If volume is NOT used in container
 	- PS C:\Windows\System32> docker volume rm my-volume
 	- my-volume
- 
+
 
 # Container Security
 
