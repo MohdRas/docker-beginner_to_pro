@@ -175,9 +175,26 @@ PS C:\Windows\System32> **docker volume create app-data**
 - This volume is created with "local" Driver.
 
 # List of Docker volumes
-PS C:\Windows\System32> **docker volume ls**
-- DRIVER    VOLUME NAME
-- local     app-data
+- Shows all volumes ( anonymous, used & unused)
+- PS C:\Windows\System32> **docker volume ls**
+	- DRIVER    VOLUME NAME
+	- local     app-data
+
+# Filter Volumes based on "driver"
+- docker volume ls -f driver=local
+	- DRIVER              VOLUME NAME
+	- local               rosemary
+	- local               tyler
+
+# Find "unused" volumes
+- In Docker Desktop
+	- go to the Volumes view.
+	- You can see the Status column, which shows whether a volume is "In use" by a container or "Unused".
+
+- The dangling filter matches on all volumes not referenced by any containers.
+        - **docker volume ls -f dangling=true**
+        - The volumes coming from above command can be removed using **rm command**
+  		- docker volume rm <volume_name>
 
 # Inspect Docker volume
 PS C:\Windows\System32> **docker inspect app-data**
@@ -217,18 +234,13 @@ PS C:\Windows\System32> **docker run --rm -it --name reader-container2 --mount "
    - 
    - Total reclaimed space: 0B
    - 
-# To check if a volume is "used" or not
- - In Docker Desktop, go to the Volumes view.
- - You can see the Status column, which shows whether a volume is "In use" by a container or "Unused".
+
  
 # Remove "unused" volumes
 - **docker volume rm ( docker volume remove )**
 - To remove unsed volumes.
 
 	- If volume is **NOT used**
-        - The dangling filter matches on all volumes not referenced by any containers.
-        - **docker volume ls -f dangling=true**
-        - The volumes coming from above command can be removed using **rm command**
 		- PS C:\Windows\System32> docker volume rm my-volume
 		- my-volume
   
