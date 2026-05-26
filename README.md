@@ -167,12 +167,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 
 # Create Docker volume 
-		PS C:\Windows\System32> docker volume create app-data
-		- "app-data" is the name of the volume.
-		- "app-data" is the folder created at path (/var/lib/docker/volumes/ : virtual file system of WSL 2 VM)
-		- full path : **/var/lib/docker/volumes/app-data/_data**
-		- Docker is managing every volume on WSL 2 VM.
-		- This volume is created with "local" Driver.
+	PS C:\Windows\System32> docker volume create app-data
+	- "app-data" is the name of the volume.
+	- "app-data" is the folder created at path (/var/lib/docker/volumes/ : virtual file system of WSL 2 VM)
+	- full path : **/var/lib/docker/volumes/app-data/_data**
+	- Docker is managing every volume on WSL 2 VM.
+	- This volume is created with "local" Driver.
 
 # List of Docker volumes
 		PS C:\Windows\System32> docker volume ls
