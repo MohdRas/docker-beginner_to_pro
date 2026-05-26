@@ -223,14 +223,12 @@ PS C:\Windows\System32> **docker run --rm -it --name reader-container2 --mount "
  
 # Remove "unused" volumes
 - **docker volume rm ( docker volume remove )**
-	- To removed "unused" volume.
-	- "unused" means => not associated to any container.
-	- 
-	- If volume is used in container
+	- To removed "unused" volume. **unused** means => not associated to any container.
+	- If volume is **used**
 		- PS C:\Windows\System32> docker volume rm hello
-		- Error response from daemon: remove hello: volume is in use - [667acfd66ca9c28deab9ca460608c56da2933e94849af920da4f24d88186b11f]
+		- *Error response from daemon: remove hello: volume is in use - [667acfd66ca9c28deab9ca460608c56da2933e94849af920da4f24d88186b11f]*
 	
-	- If volume is NOT used in container
+	- If volume is **NOT used**
 		- PS C:\Windows\System32> docker volume rm my-volume
 		- my-volume
 
