@@ -204,7 +204,18 @@ PS C:\Windows\System32> **docker run --rm -it --name reader-container2 --mount "
 - / # cat /data/secret.txt
 - This is critical production data
 
-   
+# remove anonymous volumes
+ - create anonymous volume
+   - PS C:\Windows\System32> **docker volume create**
+   - 042673d7d178724295daebea728edb835e20f157a90b1b7f9646d3bca4485d74  ( anonymous name)
+ - prune ( remove) anonymous volume
+   - PS C:\Windows\System32> **docker volume prune**
+   - WARNING! This will remove anonymous local volumes not used by at least one container.
+   - Are you sure you want to continue? [y/N] y
+   - Deleted Volumes:
+   - 042673d7d178724295daebea728edb835e20f157a90b1b7f9646d3bca4485d74
+   - 
+   - Total reclaimed space: 0B 
  
 
 # Container Security
