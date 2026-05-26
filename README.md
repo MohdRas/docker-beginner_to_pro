@@ -181,20 +181,21 @@ PS C:\Windows\System32> **docker volume create app-data**
 	- local     app-data
 
 # Filter Volumes based on "driver"
-- docker volume ls -f driver=local
+- docker volume ls **-f driver=local**
 	- DRIVER              VOLUME NAME
 	- local               rosemary
 	- local               tyler
 
 # Find "unused" volumes
 - In Docker Desktop
-	- go to the Volumes view.
-	- You can see the Status column, which shows whether a volume is "In use" by a container or "Unused".
+  - go to the Volumes view.
+  - You can see the Status column, which shows whether a volume is "In use" by a container or "Unused".
 
 - The dangling filter matches on all volumes not referenced by any containers.
-        - **docker volume ls -f dangling=true**
-        - The volumes coming from above command can be removed using **rm command**
-  		- docker volume rm <volume_name>
+
+  - docker volume ls **-f dangling=true**
+  - The volumes coming from above command can be removed using **rm command**
+  - docker volume rm <volume_name>
 
 # Inspect Docker volume
 PS C:\Windows\System32> **docker inspect app-data**
