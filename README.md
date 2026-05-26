@@ -180,22 +180,30 @@ PS C:\Windows\System32> **docker volume create app-data**
 	- DRIVER    VOLUME NAME
 	- local     app-data
 
-# Filter Volumes based on "driver"
+# List of Volumes based on "driver"
 - docker volume ls **-f driver=local**
 	- DRIVER              VOLUME NAME
 	- local               rosemary
 	- local               tyler
 
-# Find "unused" volumes
+# List of "unused" volumes
 - In Docker Desktop
   - go to the Volumes view.
   - You can see the Status column, which shows whether a volume is "In use" by a container or "Unused".
 
 - The dangling filter matches on all volumes not referenced by any containers.
-
   - docker volume ls **-f dangling=true**
   - The volumes coming from above command can be removed using **rm command**
   - docker volume rm <volume_name>
+
+# List of volumes in "json" format
+- docker volume ls **--format json**
+				
+				{"Availability":"N/A","Driver":"local","Group":"N/A","Labels":"","Links":"N/A","Mountpoint":"/var/lib/docker/volumes/app-data/_data","Name":"app-data","Scope":"local","Size":"N/A","Status":"N/A"}
+				{"Availability":"N/A","Driver":"local","Group":"N/A","Labels":"","Links":"N/A","Mountpoint":"/var/lib/docker/volumes/hello/_data","Name":"hello","Scope":"local","Size":"N/A","Status":"N/A"}
+				{"Availability":"N/A","Driver":"local","Group":"N/A","Labels":"","Links":"N/A","Mountpoint":"/var/lib/docker/volumes/volume1/_data","Name":"volume1","Scope":"local","Size":"N/A","Status":"N/A"}
+				{"Availability":"N/A","Driver":"local","Group":"N/A","Labels":"","Links":"N/A","Mountpoint":"/var/lib/docker/volumes/volume2/_data","Name":"volume2","Scope":"local","Size":"N/A","Status":"N/A"}
+  
 
 # Inspect Docker volume
 PS C:\Windows\System32> **docker inspect app-data**
