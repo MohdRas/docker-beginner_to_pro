@@ -215,7 +215,19 @@ PS C:\Windows\System32> **docker run --rm -it --name reader-container2 --mount "
    - Deleted Volumes:
    - 042673d7d178724295daebea728edb835e20f157a90b1b7f9646d3bca4485d74
    - 
-   - Total reclaimed space: 0B 
+   - Total reclaimed space: 0B
+# Remove unused volumes
+**docker volume rm ( docker volume remove )**
+- To removed "unused" volume.
+- "unused" means => not associated to any container.
+- 
+- If volume is used in container
+	- PS C:\Windows\System32> docker volume rm hello
+	- Error response from daemon: remove hello: volume is in use - [667acfd66ca9c28deab9ca460608c56da2933e94849af920da4f24d88186b11f]
+
+- If volume is NOT used in container
+	- PS C:\Windows\System32> docker volume rm my-volume
+	- my-volume
  
 
 # Container Security
