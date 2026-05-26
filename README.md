@@ -181,27 +181,28 @@ PS C:\Windows\System32> **docker volume ls**
 
 # Inspect Docker volume
 PS C:\Windows\System32> **docker inspect app-data**
-[
-    {
-        "CreatedAt": "2026-05-25T12:51:44Z",
-        "Driver": "local",
-        "Labels": null,
-        "Mountpoint": "/var/lib/docker/volumes/app-data/_data",
-        "Name": "app-data",
-        "Options": null,
-        "Scope": "local"
-    }
-]
+- [
+-     {
+-         "CreatedAt": "2026-05-25T12:51:44Z",
+-         "Driver": "local",
+-         "Labels": null,
+-         "Mountpoint": "/var/lib/docker/volumes/app-data/_data",
+-         "Name": "app-data",
+-         "Options": null,
+-         "Scope": "local"
+-     }
+- ]
+
 
 # Mounting **Docker Volume** to a directory **/data** inside container
 PS C:\Windows\System32> **docker run --rm -it --name writer-container --mount "source=app-data,target=/data" alpine sh**
-/ # echo "This is critical production data" > /data/secret.txt
-/ # exit
+- / # echo "This is critical production data" > /data/secret.txt
+- / # exit
 
 # Verify Data Persistence
 PS C:\Windows\System32> **docker run --rm -it --name reader-container2 --mount "source=app-data,target=/data" alpine sh**
-/ # cat /data/secret.txt
-This is critical production data
+- / # cat /data/secret.txt
+- This is critical production data
 
    
  
