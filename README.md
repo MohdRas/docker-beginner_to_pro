@@ -206,18 +206,19 @@ PS C:\Windows\System32> **docker volume create app-data**
   
 
 # Inspect Docker volume
-PS C:\Windows\System32> **docker inspect app-data**
-- [
--     {
--         "CreatedAt": "2026-05-25T12:51:44Z",
--         "Driver": "local",
--         "Labels": null,
--         "Mountpoint": "/var/lib/docker/volumes/app-data/_data",
--         "Name": "app-data",
--         "Options": null,
--         "Scope": "local"
--     }
-- ]
+- PS C:\Windows\System32> **docker inspect app-data**
+
+		[
+		    {
+		        "CreatedAt": "2026-05-25T12:51:44Z",
+		        "Driver": "local",
+		        "Labels": null,
+		        "Mountpoint": "/var/lib/docker/volumes/app-data/_data",
+		        "Name": "app-data",
+		        "Options": null,
+		        "Scope": "local"
+		    }
+		]
 
 
 # Mounting **Docker Volume** to a directory **/data** inside container
