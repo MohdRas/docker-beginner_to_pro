@@ -221,8 +221,14 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 		]
 
 
-# Mounting **Docker Volume** to a directory **/data** inside container
--  **docker run --rm -it --name writer-container --mount "source=app-data,target=/data" alpine sh**
+# Mount *Docker Volume* to a folder */data*
+-  docker run -d -p 8086:8080 -v volume1:/data demo_my-app:1.1
+-  docker run -d -p 8085:8080 --mount "source=volume1,target=/data" demo_my-app:1.1
+-  Both does the same thing
+-  *volume1* = the name of the volume created.
+- *data* = it is the folder name inside container.
+- docker debug <CONTAINER_ID> = we are now inside the container
+- once we are inside container then type below command
 - / # echo "This is critical production data" > /data/secret.txt
 - / # exit
 
@@ -255,6 +261,51 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 	- If volume is **used**
 		- -  docker volume rm hello
 		- **Error response from daemon: remove hello: volume is in use - [667acfd66ca9c28deab9ca460608c56da2933e94849af920da4f24d88186b11f]**
+
+# Create Volume, Mount inside container and Write on this mount
+- PS C:\Windows\System32> docker volume create my-volume
+	- my-volume
+	
+- PS C:\Windows\System32> docker volume ls
+	- DRIVER    VOLUME NAME
+	- local     my-volume
+	
+- PS C:\Windows\System32> docker run -d -p 8080:8080 -v my-volume:/folder-inside-container my-app:1.1
+	- c04f2e37c24dbc701ce87b55dca941bb51957838d6c573ba9689883874384f80
+	
+- PS C:\Windows\System32> docker ps
+	- CONTAINER ID   IMAGE        COMMAND               CREATED          STATUS          PORTS                                         NAMES
+	- c04f2e37c24d   my-app:1.1   "java -jar app.jar"   13 seconds ago   Up 13 seconds   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   confident_carson
+	
+- PS C:\Windows\System32> docker debug c04f2e37c24d
+                                                                                      Version: 0.0.47
+- root@c04f2e37c24d /app [confident_carson]
+	- docker > ls
+	- app.jar
+
+- root@c04f2e37c24d /app [confident_carson]
+	- docker > echo "my first text file inside folder of a container" > /folder-inside-container/demo1.txt
+	
+- root@c04f2e37c24d /app [confident_carson]
+	- docker > ls
+	- app.jar
+	
+- root@c04f2e37c24d /app [confident_carson]
+	- docker > cd /
+	
+- root@c04f2e37c24d / [confident_carson]
+	- docker > cd folder-inside-container/
+	
+- root@c04f2e37c24d /folder-inside-container [confident_carson]
+	- docker > ls
+	- demo1.txt
+- root@c04f2e37c24d /folder-inside-container [confident_carson]
+	- docker > cat demo1.txt
+	- my first text file inside folder of a container
+- root@c04f2e37c24d /folder-inside-container [confident_carson]
+	- docker > exit
+	- exit
+- PS C:\Windows\System32>
 	
 
 
