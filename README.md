@@ -306,7 +306,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 	- exit
 - PS C:\Windows\System32>
   
-# Mount same volume inside another container & another folder
+# Mount same volume inside another container & another folder and read it
 
 - PS C:\Windows\System32> docker run -d -p 8081:8080 -v **my-volume**:/**another-folder** my-app:1.1
 	- 3c1809c99bb83b8dad993c57dffc6a37c1a54ec39e56ef78e22afb8201389ea2
