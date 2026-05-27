@@ -167,7 +167,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 
 # Create Docker volume 
-PS C:\Windows\System32> **docker volume create app-data**
+-  **docker volume create app-data**
 - "app-data" is the name of the volume.
 - "app-data" is the folder created at path (/var/lib/docker/volumes/ : virtual file system of WSL 2 VM)
 - full path : **/var/lib/docker/volumes/app-data/_data**
@@ -176,7 +176,7 @@ PS C:\Windows\System32> **docker volume create app-data**
 
 # List of Docker volumes
 - Shows all volumes ( anonymous, used & unused)
-- PS C:\Windows\System32> **docker volume ls**
+- -  **docker volume ls**
 	- DRIVER    VOLUME NAME
 	- local     app-data
 
@@ -206,7 +206,7 @@ PS C:\Windows\System32> **docker volume create app-data**
   
 
 # Inspect Docker volume
-- PS C:\Windows\System32> **docker inspect app-data**
+- -  **docker inspect app-data**
 
 		[
 		    {
@@ -222,21 +222,21 @@ PS C:\Windows\System32> **docker volume create app-data**
 
 
 # Mounting **Docker Volume** to a directory **/data** inside container
-PS C:\Windows\System32> **docker run --rm -it --name writer-container --mount "source=app-data,target=/data" alpine sh**
+-  **docker run --rm -it --name writer-container --mount "source=app-data,target=/data" alpine sh**
 - / # echo "This is critical production data" > /data/secret.txt
 - / # exit
 
 # Verify Data Persistence
-PS C:\Windows\System32> **docker run --rm -it --name reader-container2 --mount "source=app-data,target=/data" alpine sh**
+-  **docker run --rm -it --name reader-container2 --mount "source=app-data,target=/data" alpine sh**
 - / # cat /data/secret.txt
 - This is critical production data
 
 # Remove "anonymous" volumes
  - create **anonymous** volume
-   - PS C:\Windows\System32> **docker volume create**
+   - -  **docker volume create**
    - 042673d7d178724295daebea728edb835e20f157a90b1b7f9646d3bca4485d74  ( anonymous name)
  - **prune** anonymous volume
-   - PS C:\Windows\System32> **docker volume prune**
+   - -  **docker volume prune**
    - WARNING! This will remove anonymous local volumes not used by at least one container.
    - Are you sure you want to continue? [y/N] y
    - Deleted Volumes:
@@ -251,11 +251,11 @@ PS C:\Windows\System32> **docker run --rm -it --name reader-container2 --mount "
 - To remove unsed volumes.
 
 	- If volume is **NOT used**
-		- PS C:\Windows\System32> docker volume rm my-volume
+		- -  docker volume rm my-volume
 		- my-volume
   
 	- If volume is **used**
-		- PS C:\Windows\System32> docker volume rm hello
+		- -  docker volume rm hello
 		- **Error response from daemon: remove hello: volume is in use - [667acfd66ca9c28deab9ca460608c56da2933e94849af920da4f24d88186b11f]**
 	
 
