@@ -263,14 +263,14 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 		- **Error response from daemon: remove hello: volume is in use - [667acfd66ca9c28deab9ca460608c56da2933e94849af920da4f24d88186b11f]**
 
 # Create Volume, Mount inside container and Write on this mount
-- PS C:\Windows\System32> docker volume create my-volume
+- PS C:\Windows\System32> docker volume create **my-volume**
 	- my-volume
 	
 - PS C:\Windows\System32> docker volume ls
 	- DRIVER    VOLUME NAME
-	- local     my-volume
+	- local     **my-volume**
 	
-- PS C:\Windows\System32> docker run -d -p 8080:8080 -v my-volume:/folder-inside-container my-app:1.1
+- PS C:\Windows\System32> docker run -d -p 8080:8080 -v **my-volume**:/**folder-inside-container** my-app:1.1
 	- c04f2e37c24dbc701ce87b55dca941bb51957838d6c573ba9689883874384f80
 	
 - PS C:\Windows\System32> docker ps
@@ -278,13 +278,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 	- c04f2e37c24d   my-app:1.1   "java -jar app.jar"   13 seconds ago   Up 13 seconds   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   confident_carson
 	
 - PS C:\Windows\System32> docker debug c04f2e37c24d
-                                                                                      Version: 0.0.47
 - root@c04f2e37c24d /app [confident_carson]
 	- docker > ls
 	- app.jar
 
 - root@c04f2e37c24d /app [confident_carson]
-	- docker > echo "my first text file inside folder of a container" > /folder-inside-container/demo1.txt
+	- docker > echo **"my first text file inside folder of a container"** > /**folder-inside-container/demo1.txt**
 	
 - root@c04f2e37c24d /app [confident_carson]
 	- docker > ls
@@ -294,17 +293,56 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 	- docker > cd /
 	
 - root@c04f2e37c24d / [confident_carson]
-	- docker > cd folder-inside-container/
+	- docker > cd **folder-inside-container**
 	
 - root@c04f2e37c24d /folder-inside-container [confident_carson]
 	- docker > ls
-	- demo1.txt
+	- **demo1.txt**
 - root@c04f2e37c24d /folder-inside-container [confident_carson]
-	- docker > cat demo1.txt
-	- my first text file inside folder of a container
+	- docker > **cat demo1.txt**
+	- **my first text file inside folder of a container**
 - root@c04f2e37c24d /folder-inside-container [confident_carson]
 	- docker > exit
 	- exit
+- PS C:\Windows\System32>
+  
+# Mount same volume inside another container & another folder
+
+- PS C:\Windows\System32> docker run -d -p 8081:8080 -v **my-volume**:/**another-folder** my-app:1.1
+	- 3c1809c99bb83b8dad993c57dffc6a37c1a54ec39e56ef78e22afb8201389ea2
+	
+- PS C:\Windows\System32> docker ps
+	- CONTAINER ID   IMAGE        COMMAND               CREATED          STATUS          PORTS                                         NAMES
+	- 3c1809c99bb8   my-app:1.1   "java -jar app.jar"   9 seconds ago    Up 8 seconds    0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp   recursing_yalow
+	- c04f2e37c24d   my-app:1.1   "java -jar app.jar"   11 minutes ago   Up 11 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   confident_carson
+	
+- PS C:\Windows\System32> docker debug 3c1809c99bb8
+- root@3c1809c99bb8 /app [recursing_yalow]
+	- docker > ls
+	- app.jar
+	
+- root@3c1809c99bb8 /app [recursing_yalow]
+	- docker > cd /
+	
+- root@3c1809c99bb8 / [recursing_yalow]
+	- docker > ls
+	- __cacert_entrypoint.sh  **another-folder**  app  bin  dev  etc  home  lib  media  mnt  nix  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+	
+- root@3c1809c99bb8 / [recursing_yalow]
+	- docker > cd  **another-folder**
+	
+- root@3c1809c99bb8 /another-folder [recursing_yalow]
+	- docker > ls
+	- **demo1.txt**
+	
+- root@3c1809c99bb8 /another-folder [recursing_yalow]
+	- docker > cat demo1.txt
+	- **my first text file inside folder of a container**
+	
+- root@3c1809c99bb8 /another-folder [recursing_yalow]
+	- docker > exit
+	- exit
+	
 - PS C:\Windows\System32>
 	
 
