@@ -171,11 +171,11 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 - "app-data" is the name of the volume.
 - "app-data" is the folder created at path (/var/lib/docker/volumes/ : virtual file system of WSL 2 VM)
 - full path : **/var/lib/docker/volumes/app-data/_data**
-- Docker is managing every volume on WSL 2 VM.
-- This volume is created with "local" Driver.
+- Docker is managing **every volume on WSL 2 VM.**
+- This volume is created with **local** Driver.
 
 # List of Docker volumes
-- Shows all volumes ( anonymous, used & unused)
+- Shows all volumes ( *anonymous, used & unused*)
 - -  **docker volume ls**
 	- DRIVER    VOLUME NAME
 	- local     app-data
@@ -206,7 +206,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
   
 
 # Inspect Docker volume
-- -  **docker inspect app-data**
+- **docker inspect app-data**
 
 		[
 		    {
@@ -233,17 +233,15 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 # Remove "anonymous" volumes
  - create **anonymous** volume
-   - -  **docker volume create**
+   - **docker volume create**
    - 042673d7d178724295daebea728edb835e20f157a90b1b7f9646d3bca4485d74  ( anonymous name)
  - **prune** anonymous volume
-   - -  **docker volume prune**
+   - **docker volume prune**
    - WARNING! This will remove anonymous local volumes not used by at least one container.
    - Are you sure you want to continue? [y/N] y
    - Deleted Volumes:
    - 042673d7d178724295daebea728edb835e20f157a90b1b7f9646d3bca4485d74
-   - 
    - Total reclaimed space: 0B
-   - 
 
  
 # Remove "unused" volumes
