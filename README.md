@@ -165,6 +165,17 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
     - does not have any access to external network or any other container.
     - run in an isolated network.
 
+# Docker Volumes
+
+		-docker volume create	 - Create a volume
+		-docker volume inspect	- Display detailed information on one or more volumes
+		-docker volume ls	- List volumes
+		-docker volume prune	- Remove unused local volumes
+		-docker volume rm	- Remove one or more volumes
+		-docker volume update	- Update a volume (cluster volumes only) 
+
+- Volumes is used as data persistence for databases and other statefull applications.
+- **The data of a container is stored in its virtual file system. It is not-persist. When we start a container, a FRESH virtual file system is created. Hence data lost.**
 
 # Create Docker volume 
 -  **docker volume create app-data**
