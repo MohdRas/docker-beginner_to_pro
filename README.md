@@ -145,13 +145,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 - Host
     - docker run redis --network host
     - ZERO isolation between container & host.
-    - "container wants to connect to other resources/servicrs on the host"
-    - "this container is like any other application directly deployed on the host without the docker"
-    - "just like a regular application on the host"
-    - we don't need to expose the port.
-    - container uses the network of the host machine.
-    - multiple container cannot be run on the same port.
-    - Container can be accessed in broswer without port
+    - **container wants to connect to other resources/services on the host**
+    - **this container is like any other application directly deployed on the host(VM) without the docker**. Just like a regular application on the host (VM).
+    - **we don't need to expose the port.**
+    - container uses the network of the host ( VM ).
+    - **multiple container cannot be run on the same port.**
+    - **Container can be accessed in broswer without port**
         - http://IP_ADDRESS_OF_HOST_MACHINE
 - overlay network
     - create private overlay network across multiple hosts of a Docker swarm.
