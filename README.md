@@ -158,7 +158,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 			Deleted Networks:
 			my-bridge-network
 
-
+# Network Types 
 - **default bridge driver ( network type )**
   	- When you launch a new container with docker run it automatically connects to this bridge network. 
     - default network
