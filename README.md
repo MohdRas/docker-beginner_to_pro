@@ -76,64 +76,76 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 - *bridge, none, host* are pre-defined network and cannot be removed ( docker network rm <NETWORK_ID> )
 - built-in DNS server run on IP 171.17.0.11
     - DNS server will resolve CONTAINER_NAME to IP_ADDRESS.
+
+# Docker network list
 - docker network ls
+	- Lists all the networks the Engine **daemon** knows about ( **custom & builtin** )
 
-		- NETWORK ID     NAME                DRIVER    SCOPE
-		- e08c374b6b36   bridge              bridge    local
-		- 56586189be5a   host                host      local
-		- e486baa2c2fb   my-bridge-network   bridge    local
-		- e4c236fa59cf   none                null      local
+		NETWORK ID     NAME                DRIVER    SCOPE
+		e08c374b6b36   bridge              bridge    local
+		56586189be5a   host                host      local
+		e486baa2c2fb   my-bridge-network   bridge    local
+		e4c236fa59cf   none                null      local
 
-- docker network ls -f id=e08c374b6b36
+- docker network ls **-f id=e08c374b6b36**
+	- filter based on id=<NETWORK_ID>.
 	
-		- NETWORK ID     NAME      DRIVER    SCOPE
-		- e08c374b6b36   bridge    bridge    local
+		NETWORK ID     NAME      DRIVER    SCOPE
+		e08c374b6b36   bridge    bridge    local
 
-- docker network ls -f name=my-bridge-network
+- docker network ls **-f name=my-bridge-network**
+	- filter based on name=<NETWORK_NAME>.
 		
-		- NETWORK ID     NAME                DRIVER    SCOPE
-		- e486baa2c2fb   my-bridge-network   bridge    local
+		NETWORK ID     NAME                DRIVER    SCOPE
+		e486baa2c2fb   my-bridge-network   bridge    local
 
-- docker network ls -f driver=bridge
-	
-		- NETWORK ID     NAME                DRIVER    SCOPE
-		- e08c374b6b36   bridge              bridge    local
-		- e486baa2c2fb   my-bridge-network   bridge    local
-
-- docker network ls -f scope=local
-		- NETWORK ID     NAME                DRIVER    SCOPE
-		- e08c374b6b36   bridge              bridge    local
-		- 56586189be5a   host                host      local
-		- e486baa2c2fb   my-bridge-network   bridge    local
-		- e4c236fa59cf   none                null      local
+- docker network ls **-f driver=bridge**
+	- filter based on driver=bridge.
+   
+		NETWORK ID     NAME                DRIVER    SCOPE
+		e08c374b6b36   bridge              bridge    local
+		e486baa2c2fb   my-bridge-network   bridge    local
 		
-- docker network ls --filter type=builtin
-		
-		- NETWORK ID     NAME      DRIVER    SCOPE
-		- e08c374b6b36   bridge    bridge    local
-		- 56586189be5a   host      host      local
-		- e4c236fa59cf   none      null      local
+- docker network ls **-f type=builtin**
+	- filter based on type=builtin.
+    
+		NETWORK ID     NAME      DRIVER    SCOPE
+		e08c374b6b36   bridge    bridge    local
+		56586189be5a   host      host      local
+		e4c236fa59cf   none      null      local
 
 
+- docker network ls **-f type=custom**
+	- filter based on type=custom.
+   
+		NETWORK ID     NAME                DRIVER    SCOPE
+		e486baa2c2fb   my-bridge-network   bridge    local
 
-- docker network ls --filter type=custom
-		
-		- NETWORK ID     NAME                DRIVER    SCOPE
-		- e486baa2c2fb   my-bridge-network   bridge    local
 
+- docker network ls **-f scope=swarm**
+	- filter based on scope=swarm.
+   
+		NETWORK ID   NAME      DRIVER    SCOPE
 
-- docker network ls --filter scope=swarm
-		
-		- NETWORK ID   NAME      DRIVER    SCOPE
+- docker network ls **-f scope=local**
+	- filter based on scope=local.
+
+  		NETWORK ID     NAME                DRIVER    SCOPE
+		e08c374b6b36   bridge              bridge    local
+		56586189be5a   host                host      local
+		e486baa2c2fb   my-bridge-network   bridge    local
+		e4c236fa59cf   none                null      local
 
 
 - docker network ls --no-trunc
+	- --no-trunc to show full network id.
 		
-		- NETWORK ID                                                         NAME                DRIVER    SCOPE
-		- e08c374b6b3692f320a6c56d850c6e24eb87f05cec803898e40d3764eb4271e7   bridge              bridge    local
-		- 56586189be5a4fc36517063f6e68bb567c0b26ee1a5be4fe70dbeb6536188d46   host                host      local
-		- e486baa2c2fbdf72737444e74fe896643696c95801d71de4a03a681a44a5f065   my-bridge-network   bridge    local
-		- e4c236fa59cf435489158a9ee8f2046a42c9c7aa7c9bac443d20c0f790728094   none                null      local
+		NETWORK ID                                                         NAME                DRIVER    SCOPE
+		e08c374b6b3692f320a6c56d850c6e24eb87f05cec803898e40d3764eb4271e7   bridge              bridge    local
+		56586189be5a4fc36517063f6e68bb567c0b26ee1a5be4fe70dbeb6536188d46   host                host      local
+		e486baa2c2fbdf72737444e74fe896643696c95801d71de4a03a681a44a5f065   my-bridge-network   bridge    local
+		e4c236fa59cf435489158a9ee8f2046a42c9c7aa7c9bac443d20c0f790728094   none                null      local
+
 
 - **default bridge driver ( network type )**
   	- When you launch a new container with docker run it automatically connects to this bridge network. 
