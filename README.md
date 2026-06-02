@@ -80,13 +80,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 # Docker network list
 - docker network ls
 	- Lists all the networks the Engine **daemon** knows about ( **custom & builtin** )
-   
 
-		NETWORK ID     NAME                DRIVER    SCOPE
-		e08c374b6b36   bridge              bridge    local
-		56586189be5a   host                host      local
-		e486baa2c2fb   my-bridge-network   bridge    local
-		e4c236fa59cf   none                null      local
+			NETWORK ID     NAME                DRIVER    SCOPE
+			e08c374b6b36   bridge              bridge    local
+			56586189be5a   host                host      local
+			e486baa2c2fb   my-bridge-network   bridge    local
+			e4c236fa59cf   none                null      local
 
 - docker network ls **-f id=e08c374b6b36**
 	- filter based on id=<NETWORK_ID>.
