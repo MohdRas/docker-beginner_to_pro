@@ -145,7 +145,22 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 - Host
 	- Docker containers are isolated network‑wise by default.
 When you run a container without extra flags it gets a bridge network (a private virtual NIC, NAT‑ed to the host).
---network host (or the older --net=host) tells Docker not to create a separate network namespace for the container – it tells the container to share the network stack of the Docker Engine process (i.e. the host’s network namespace).
+--network host (or the older --net=host) **tells Docker not to create a separate network namespace for the container – it tells the container to share the network stack of the Docker Engine process (i.e. the host’s network namespace).**
+	- No virtual Ethernet (eth0) is created inside the container.
+	- The container sees the same interfaces, IP addresses, routing table, and firewall rules that the host (the Docker daemon) sees.
+	- Ports are bound directly on the host’s IP; there is no Docker‑managed NAT or port‑mapping (-p).
+	- The container can bind to any port the host can (including privileged ports < 1024).
+	- The container can inspect/modify the host’s networking (e.g., run iptables, tcpdump).
+	- Performance is slightly better because packets skip the Docker bridge/NAT hop.
+ 	- Linux kernel namespaces – By default Docker creates a new net namespace for each container (unshare(CLONE_NEWNET)).
+	- With --network host, Docker skips the net namespace creation. The container runs in the same network namespace as the daemon (dockerd).
+	- The container’s process tree still gets its own PID, mount, UTS, and cgroup namespaces (unless you also ask for --pid host, etc.).
+	- Because the network namespace is shared, the container sees the same /proc/net, same /sys/class/net, and the same iptables tables as the host.
+ 	- docker run --network host <image>	Run container in host network mode (Linux containers only).
+	- docker run --network bridge <image>	The default bridge network (isolated).
+	- docker run -p 8080:80 <image>	Bridge mode + publish port 8080 on the host.
+	- docker run --network none <image>	No network at all (isolated).
+	- docker run --network container:<other>	Share the network namespace of another container (useful for side‑car patterns).
     - **docker run redis --network host**
     - ZERO isolation between container & host.
     - container wants to connect to other resources/services on the host
