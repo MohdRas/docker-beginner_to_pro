@@ -71,18 +71,82 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 # Docker networking
 - https://www.youtube.com/watch?v=5grbXvV_DSk&t=564s
 - https://www.youtube.com/watch?v=bKFMS5C4CG0
-- docker creates 3 network driver (network types) automatically.
-- 3 "driver" or "network type" is Bridge, None, Host.
+- docker creates 3 network driver (network types) automatically when we installed docker desktop or docker engine.
+- 3 "drivers" or 3 "network types" are *bridge, none, host*
+- *bridge, none, host* are pre-defined network and cannot be removed ( docker network rm <NETWORK_ID> )
 - built-in DNS server run on IP 171.17.0.11
-    - DNS server will resoLVE CONTAINER_NAME to IP_ADDRESS.
-- defualt bridge driver ( network type )
+    - DNS server will resolve CONTAINER_NAME to IP_ADDRESS.
+- docker network ls
+
+		- NETWORK ID     NAME                DRIVER    SCOPE
+		- e08c374b6b36   bridge              bridge    local
+		- 56586189be5a   host                host      local
+		- e486baa2c2fb   my-bridge-network   bridge    local
+		- e4c236fa59cf   none                null      local
+
+- docker network ls -f id=e08c374b6b36
+	
+		- NETWORK ID     NAME      DRIVER    SCOPE
+		- e08c374b6b36   bridge    bridge    local
+
+- docker network ls -f name=my-bridge-network
+		
+		- NETWORK ID     NAME                DRIVER    SCOPE
+		- e486baa2c2fb   my-bridge-network   bridge    local
+
+- docker network ls -f driver=bridge
+	
+		- NETWORK ID     NAME                DRIVER    SCOPE
+		- e08c374b6b36   bridge              bridge    local
+		- e486baa2c2fb   my-bridge-network   bridge    local
+
+- docker network ls -f scope=local
+		- NETWORK ID     NAME                DRIVER    SCOPE
+		- e08c374b6b36   bridge              bridge    local
+		- 56586189be5a   host                host      local
+		- e486baa2c2fb   my-bridge-network   bridge    local
+		- e4c236fa59cf   none                null      local
+		
+- docker network ls --filter type=builtin
+		
+		- NETWORK ID     NAME      DRIVER    SCOPE
+		- e08c374b6b36   bridge    bridge    local
+		- 56586189be5a   host      host      local
+		- e4c236fa59cf   none      null      local
+
+
+
+- docker network ls --filter type=custom
+		
+		- NETWORK ID     NAME                DRIVER    SCOPE
+		- e486baa2c2fb   my-bridge-network   bridge    local
+
+
+- docker network ls --filter scope=swarm
+		
+		- NETWORK ID   NAME      DRIVER    SCOPE
+
+
+- docker network ls --no-trunc
+		
+		- NETWORK ID                                                         NAME                DRIVER    SCOPE
+		- e08c374b6b3692f320a6c56d850c6e24eb87f05cec803898e40d3764eb4271e7   bridge              bridge    local
+		- 56586189be5a4fc36517063f6e68bb567c0b26ee1a5be4fe70dbeb6536188d46   host                host      local
+		- e486baa2c2fbdf72737444e74fe896643696c95801d71de4a03a681a44a5f065   my-bridge-network   bridge    local
+		- e4c236fa59cf435489158a9ee8f2046a42c9c7aa7c9bac443d20c0f790728094   none                null      local
+
+- **default bridge driver ( network type )**
+  	- When you launch a new container with docker run it automatically connects to this bridge network. 
     - default network
         - IP 172.17.0.1 aasigned to interface "docker0"
         - IP 172.17.0.2 aasigned to first container
         - IP 172.17.0.3 assigned to second container
         - and so on...
         - till 172.17.0.16
-    - docker run --rm -d redis
+    - docker run -d redis - The default bridge network (isolated).
+  	- docker run -d -p 8080:80 redis - The default bridge network (isolated) + port binding
+    - docker run -d --network bridge redis	 - The default bridge network (isolated).
+    - 
     - to access these containers from outside, we need port binding.
         - exposing containers to the world using port binding.
         - docker run --rm -d -P 80:80 redis 
