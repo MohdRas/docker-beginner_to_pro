@@ -143,9 +143,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 
 - Host
-    - docker run redis --network host
+	- Docker containers are isolated network‑wise by default.
+When you run a container without extra flags it gets a bridge network (a private virtual NIC, NAT‑ed to the host).
+--network host (or the older --net=host) tells Docker not to create a separate network namespace for the container – it tells the container to share the network stack of the Docker Engine process (i.e. the host’s network namespace).
+    - **docker run redis --network host**
     - ZERO isolation between container & host.
-    - **container wants to connect to other resources/services on the host**
+    - container wants to connect to other resources/services on the host
     - **this container is like any other application directly deployed on the host(VM) without the docker**. Just like a regular application on the host (VM).
     - **we don't need to expose the port.**
     - container uses the network of the host ( VM ).
