@@ -107,6 +107,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 			e486baa2c2fb   my-bridge-network   bridge    local	
 		
 - docker network ls **-f type=builtin**
+	- shows only builtin network drivers.
 	- filter based on type=builtin.
     
 			NETWORK ID     NAME      DRIVER    SCOPE
@@ -116,6 +117,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 
 - docker network ls **-f type=custom**
+	- shows only custom (user-defined) network drivers.
 	- filter based on type=custom.
 	   
 			NETWORK ID     NAME                DRIVER    SCOPE
