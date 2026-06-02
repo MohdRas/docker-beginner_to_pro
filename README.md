@@ -148,6 +148,16 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 			e486baa2c2fbdf72737444e74fe896643696c95801d71de4a03a681a44a5f065   my-bridge-network   bridge    local
 			e4c236fa59cf435489158a9ee8f2046a42c9c7aa7c9bac443d20c0f790728094   none                null      local
 
+# Docker network - remove unused **custom** networks
+- docker network prune
+	- This will remove all custom networks not used by at least one container.
+
+			docker network prune
+			WARNING! This will remove all custom networks not used by at least one container.
+			Are you sure you want to continue? [y/N] y
+			Deleted Networks:
+			my-bridge-network
+
 
 - **default bridge driver ( network type )**
   	- When you launch a new container with docker run it automatically connects to this bridge network. 
