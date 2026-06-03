@@ -80,7 +80,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 # docker network create
 - Creates a new network.
 - If you don't specify the --driver option, the command automatically creates a bridge network for you.
-- 
+- Only **custom created bridge driver networks** can be deleted.
 - docker network create my-firs-default-bridge-net
 
 			5894fa1e2881c2943915ef564d5725886f350b21ba42b178feb5c6cb1e13dbb6
@@ -105,7 +105,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 			5894fa1e2881   my-firs-default-bridge-net   bridge    local
 			41fa6346ff55   my-first-net                 bridge    local
 			e4c236fa59cf   none                         null      local   ===============> "null" driver network = only one allowed
-- Only **custom created bridge driver networks** can be deleted.
+
   
 # Docker network list
 - docker network ls
