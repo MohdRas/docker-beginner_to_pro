@@ -182,7 +182,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 	
 	
 - docker inspect my-network
-
+	- see **"Containers": {},** ==>> Means no container to network
 
 					[
 						{
@@ -202,7 +202,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					]
 	
 - docker inspect nervous_carver
-
+	 - see **"Networks": {}** ==>> Means no network in container
 
 					[
 						{
