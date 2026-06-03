@@ -162,17 +162,16 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 - docker network rm <NETWORK_NAME_OR_ID>
 	- **To remove a network, you must first disconnect any containers connected to it.**
 
-	- my-network = name of network
-	- nervous_carver = name of container
-
-	docker network rm my-network
+- docker network rm my-network
 
   				Error response from daemon: error while removing network: network my-network has active endpoints (name:"nervous_carver" id:"8eea1c6a8be5")
 
-	docker network disconnect my-network nervous_carver
+- docker network disconnect my-network nervous_carver
+	- my-network = name of network
+	- nervous_carver = name of container
 	
 	
-	docker network ls
+- docker network ls
 
 
 				NETWORK ID     NAME         DRIVER    SCOPE
@@ -182,7 +181,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 				e4c236fa59cf   none         null      local
 	
 	
-	docker inspect my-network
+- docker inspect my-network
 
 
 					[
@@ -202,7 +201,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 						}
 					]
 	
-	docker inspect nervous_carver
+- docker inspect nervous_carver
 
 
 					[
@@ -215,11 +214,11 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 	
 	
 	
-	docker network rm my-network
+- docker network rm my-network
 
 					my-network
 	
-	docker network ls
+- docker network ls
 
 
 					NETWORK ID     NAME      DRIVER    SCOPE
