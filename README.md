@@ -157,6 +157,66 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 			Are you sure you want to continue? [y/N] y
 			Deleted Networks:
 			my-bridge-network
+   
+# Docker network - remove **custom** networks
+- docker network rm <NETWORK_NAME_OR_ID>
+	- **To remove a network, you must first disconnect any containers connected to it.**
+
+			my-network = name of network
+   			nervous_carver = name of container
+   		
+   			docker network rm my-network
+			Error response from daemon: error while removing network: network my-network has active endpoints (name:"nervous_carver" id:"8eea1c6a8be5")
+
+   			docker network disconnect my-network nervous_carver
+			
+			
+			docker network ls
+			NETWORK ID     NAME         DRIVER    SCOPE
+			e08c374b6b36   bridge       bridge    local
+			56586189be5a   host         host      local
+			94dd8b11c124   my-network   bridge    local
+			e4c236fa59cf   none         null      local
+			
+			
+			docker inspect my-network
+			[
+			    {
+			        "Name": "my-network",
+			        "Containers": {},
+			        "Status": {
+			            "IPAM": {
+			                "Subnets": {
+			                    "172.18.0.0/16": {
+			                        "IPsInUse": 3,
+			                        "DynamicIPsAvailable": 65533
+			                    }
+			                }
+			            }
+			        }
+			    }
+			]
+			
+			docker inspect nervous_carver
+			[
+			    {
+			        
+			            "Networks": {}
+			        
+			    }
+			]
+			
+			
+			
+			docker network rm my-network
+			my-network
+			
+			docker network ls
+			NETWORK ID     NAME      DRIVER    SCOPE
+			e08c374b6b36   bridge    bridge    local
+			56586189be5a   host      host      local
+			e4c236fa59cf   none      null      local
+   			
 
 # Network Types 
 - **default bridge driver ( network type )**
