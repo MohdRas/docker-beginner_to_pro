@@ -84,11 +84,9 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
       
 - custom driver networks
 	- created by the user.
-	- can be removed.
-	- we can only not create **"bridge"** driver networks. we can not create "", ""It can be multiple.
+	- multiples can be created & can be removed.
+	- we can only create **"bridge"** driver type networks. The **"host"** and **"null"** driver type networks cannnot be created.
 	- docker network ls **-f type=custom** 
-	- it can be only of type driver=bridge.
- 	-	 
 
 
 # docker network create
