@@ -71,16 +71,34 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 # Docker networking
 - https://www.youtube.com/watch?v=5grbXvV_DSk&t=564s
 - https://www.youtube.com/watch?v=bKFMS5C4CG0
-- docker creates 3 network driver (network types) automatically when we installed docker desktop or docker engine.
 - 3 "drivers" or 3 "network types" are *bridge, none, host*
 - *bridge, none, host* are pre-defined network and cannot be removed ( docker network rm <NETWORK_ID> )
 - built-in DNS server run on IP 171.17.0.11
     - DNS server will resolve CONTAINER_NAME to IP_ADDRESS.
+ 
+- builtin driver networks
+	- automatically created when we installed docker desktop or docker engine.
+	- cannot be removed.
+	- docker network ls **-f type=builtin** 
+	- bridge, none, host ( these are the names of the network)
+      
+- custom driver networks
+	- created by the user.
+	- can be removed.
+	- we can only not create **"bridge"** driver networks. we can not create "", ""It can be multiple.
+	- docker network ls **-f type=custom** 
+	- it can be only of type driver=bridge.
+ 	-	 
+
 
 # docker network create
 - Creates a new network.
+- docker creates 3 driver networks (bridge, none, host) automatically when we installed docker desktop or docker engine.
+- *bridge, none, host* are pre-defined network and cannot be removed ( docker network rm <NETWORK_ID> )
+- Only custom 
 - If you don't specify the --driver option, the command automatically creates a bridge network for you.
 - Only **custom created bridge driver networks** can be deleted.
+- **bridge driver network** which was created by the user
 - docker network create my-firs-default-bridge-net
 
 			5894fa1e2881c2943915ef564d5725886f350b21ba42b178feb5c6cb1e13dbb6
