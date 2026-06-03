@@ -77,6 +77,35 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 - built-in DNS server run on IP 171.17.0.11
     - DNS server will resolve CONTAINER_NAME to IP_ADDRESS.
 
+# docker network create
+- Creates a new network.
+- If you don't specify the --driver option, the command automatically creates a bridge network for you.
+	- PS C:\Windows\System32> docker network create my-firs-default-bridge-net
+
+			5894fa1e2881c2943915ef564d5725886f350b21ba42b178feb5c6cb1e13dbb6
+   
+- docker network create --driver=host my-first-host-net
+
+			Error response from daemon: only one instance of "host" network is allowed
+
+- docker network create --driver=null my-first-null-net
+			
+			Error response from daemon: only one instance of "null" network is allowed
+
+- docker network create --driver=bridge my-first-host-net
+			
+			4fbaeaf2c6de76bc54d08513c9f16b4ae24bbd3c37f4d13f2fd7cfe8b9f371de
+  
+- docker network ls
+
+  			NETWORK ID     NAME                         DRIVER    SCOPE
+			e08c374b6b36   bridge                       bridge    local  ===============> "bridge" driver networks = multiple allowed
+			56586189be5a   host                         host      local  ===============> "host" driver network = only one allowed
+			5894fa1e2881   my-firs-default-bridge-net   bridge    local
+			41fa6346ff55   my-first-net                 bridge    local
+			e4c236fa59cf   none                         null      local   ===============> "null" driver network = only one allowed
+- Only **custom created bridge driver networks** can be deleted.
+  
 # Docker network list
 - docker network ls
 	- Lists all the networks the Engine **daemon** knows about ( **custom & builtin** )
@@ -225,6 +254,8 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					e08c374b6b36   bridge    bridge    local
 					56586189be5a   host      host      local
 					e4c236fa59cf   none      null      local
+# docker network disconnect
+- Disconnects a container from a network. The container must be **running** to disconnect it from the network.
    			
 
 # Network Types 
