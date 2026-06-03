@@ -274,6 +274,140 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					e4c236fa59cf   none      null      local
 # docker network disconnect
 - Disconnects a container from a network. The container must be **running** to disconnect it from the network.
+
+# docker network subnet
+
+- PS C:\Windows\System32> docker network create --subnet 192.168.0.0/16 my-subnet
+		- 24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f
+		- "Gateway": "192.168.0.1"
+		- "Subnet": "192.168.0.0/16"
+				- containers associated to this network will have IP addess from 192.168.0.2 to 192.168.0.16.
+
+- PS C:\Windows\System32> docker inspect 24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f
+		
+		
+				[
+					{
+						"Name": "my-subnet",
+						"Id": "24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f",
+						"Created": "2026-06-03T10:25:23.761206275Z",
+						"Scope": "local",
+						"Driver": "bridge",
+						"EnableIPv4": true,
+						"EnableIPv6": false,
+						"IPAM": {
+							"Driver": "default",
+							"Options": {},
+							"Config": [
+								{
+									"Subnet": "192.168.0.0/16",
+									"Gateway": "192.168.0.1"
+								}
+							]
+						},
+						"Internal": false,
+						"Attachable": false,
+						"Ingress": false,
+						"ConfigFrom": {
+							"Network": ""
+						},
+						"ConfigOnly": false,
+						"Options": {
+							"com.docker.network.enable_ipv4": "true",
+							"com.docker.network.enable_ipv6": "false"
+						},
+						"Labels": {},
+						"Containers": {},
+						"Status": {
+							"IPAM": {
+								"Subnets": {
+									"192.168.0.0/16": {
+										"IPsInUse": 3,
+										"DynamicIPsAvailable": 65533
+									}
+								}
+							}
+						}
+					}
+				]
+			
+
+- PS C:\Windows\System32> docker run -d --network my-subnet demo-app-service:latest
+			
+			
+				cfe15b9705afcebad06097e7f507c69dcdb488e4d4905fbe5af942dfbdd6eb51
+
+
+- PS C:\Windows\System32> docker run -d --network my-subnet redis:7-alpine
+			
+			
+				ca6205bebf98439844f694866898962eac6a4a80bb8d25afcd2237ed5e73ddf9
+
+
+- PS C:\Windows\System32> docker inspect 24a615e9d4fe
+				
+				
+				[
+					{
+						"Name": "my-subnet",
+						"Id": "24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f",
+						"Created": "2026-06-03T10:25:23.761206275Z",
+						"Scope": "local",
+						"Driver": "bridge",
+						"EnableIPv4": true,
+						"EnableIPv6": false,
+						"IPAM": {
+							"Driver": "default",
+							"Options": {},
+							"Config": [
+								{
+									"Subnet": "192.168.0.0/16",
+									"Gateway": "192.168.0.1"
+								}
+							]
+						},
+						"Internal": false,
+						"Attachable": false,
+						"Ingress": false,
+						"ConfigFrom": {
+							"Network": ""
+						},
+						"ConfigOnly": false,
+						"Options": {
+							"com.docker.network.enable_ipv4": "true",
+							"com.docker.network.enable_ipv6": "false"
+						},
+						"Labels": {},
+						"Containers": {
+							"ca6205bebf98439844f694866898962eac6a4a80bb8d25afcd2237ed5e73ddf9": {
+								"Name": "distracted_shtern",
+								"EndpointID": "d40b0825c9ce2b72daaa04cfcc76508ca6bab9323a11668679ed2cec4315ea5d",
+								"MacAddress": "8e:2b:9d:d7:ff:7d",
+								"IPv4Address": "192.168.0.3/16",
+								"IPv6Address": ""
+							},
+							"cfe15b9705afcebad06097e7f507c69dcdb488e4d4905fbe5af942dfbdd6eb51": {
+								"Name": "upbeat_robinson",
+								"EndpointID": "5400b480a0eb6603b9de263fda6853fd481a8c9a8c9ca3288d303f0ed8fa9ada",
+								"MacAddress": "86:3d:02:f2:02:42",
+								"IPv4Address": "192.168.0.2/16",
+								"IPv6Address": ""
+							}
+						},
+						"Status": {
+							"IPAM": {
+								"Subnets": {
+									"192.168.0.0/16": {
+										"IPsInUse": 5,
+										"DynamicIPsAvailable": 65531
+									}
+								}
+							}
+						}
+					}
+				]
+
+
    			
 
 # Network Types 
