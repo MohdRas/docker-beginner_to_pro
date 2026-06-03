@@ -80,19 +80,20 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 # docker network create
 - Creates a new network.
 - If you don't specify the --driver option, the command automatically creates a bridge network for you.
-	- PS C:\Windows\System32> docker network create my-firs-default-bridge-net
+- 
+- docker network create my-firs-default-bridge-net
 
 			5894fa1e2881c2943915ef564d5725886f350b21ba42b178feb5c6cb1e13dbb6
    
-- docker network create --driver=host my-first-host-net
+- docker network create **--driver=host** my-first-host-net
 
 			Error response from daemon: only one instance of "host" network is allowed
 
-- docker network create --driver=null my-first-null-net
+- docker network create **--driver=null** my-first-null-net
 			
 			Error response from daemon: only one instance of "null" network is allowed
 
-- docker network create --driver=bridge my-first-host-net
+- docker network create **--driver=bridge** my-first-host-net
 			
 			4fbaeaf2c6de76bc54d08513c9f16b4ae24bbd3c37f4d13f2fd7cfe8b9f371de
   
