@@ -81,6 +81,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 	- cannot be removed.
 	- docker network ls **-f type=builtin** 
 	- bridge, none, host ( these are the names of the network)
+ 	- the "bridge" network corresponds to the **docker0** bridge that Docker Engine has traditionally relied on.
       
 - custom driver networks
 	- created by the user.
