@@ -278,10 +278,11 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 # docker network subnet
 
 - PS C:\Windows\System32> docker network create --subnet 192.168.0.0/16 my-subnet
-		- 24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f
-		- "Gateway": "192.168.0.1"
-		- "Subnet": "192.168.0.0/16"
-				- containers associated to this network will have IP addess from 192.168.0.2 to 192.168.0.16.
+
+	- 24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f
+	- "Gateway": "192.168.0.1"
+	- "Subnet": "192.168.0.0/16"
+			- containers associated to this network will have IP addess from 192.168.0.2 to 192.168.0.16.
 
 - PS C:\Windows\System32> docker inspect 24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f
 		
