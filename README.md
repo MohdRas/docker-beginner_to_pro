@@ -71,8 +71,8 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 # Docker networking
 - https://www.youtube.com/watch?v=5grbXvV_DSk&t=564s
 - https://www.youtube.com/watch?v=bKFMS5C4CG0
-- 3 "drivers" or 3 "network types" are *bridge, none, host*
 - *bridge, none, host* are pre-defined network and cannot be removed ( docker network rm <NETWORK_ID> )
+- You can connect multiple containers to the same network. Once connected, the containers can communicate using only another container's IP address or name.
 - built-in DNS server run on IP 171.17.0.11
     - DNS server will resolve CONTAINER_NAME to IP_ADDRESS.
  
@@ -285,26 +285,17 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
         - IP 172.17.0.3 assigned to second container
         - and so on...
         - till 172.17.0.16
-    - docker run -d redis - The default bridge network (isolated).
-  	- docker run -d -p 8080:80 redis - The default bridge network (isolated) + port binding
-    - docker run -d --network bridge redis	 - The default bridge network (isolated).
-    - 
+    - docker run -d redis
+    	- The **"default bridge"** network (isolated).
+  	- docker run -d -p 8080:80 redis
+    	- The **"default bridge"** network (isolated)
+    - docker run -d --network bridge redis
+    	- The **"custom bridge"** network (isolated).
     - to access these containers from outside, we need port binding.
         - exposing containers to the world using port binding.
         - docker run --rm -d -P 80:80 redis 
     - Container can be accessed in broswer only if port binding done.
         - http://IP_ADDRESS_OF_HOST_MACHINE:80
-    - "docker inspect CONTAINER_ID" OR "docker inspect CONTAINER_NAME"
-        - docker inspect redis
-        - "redis" is the container name 
-        - show "network" of a container. It will be only one.
-    - "docker inspect NETWORK_ID" OR "docker inspect NETWORK_NAME"
-        - docker inspect bridge 
-        - "bridge" is the name of the network.
-        - show "all containers" of a network. It can be multiple.
-    - "ip a | grep docker0" command
-        - Docker create interfaces for every bridge network
-        - "docker0" is the interface of the default_bridge network. It IP is 172.17.0.1
     - containers communicate with each other using their internal IP address.
         - CONTAINER_1 - docker run --it -d --name redis-container redis
         - CONTAINER_2 - docker run --it -d --name nginx-container nginx
