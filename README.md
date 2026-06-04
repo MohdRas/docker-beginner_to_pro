@@ -278,12 +278,10 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 # docker network subnet
 
 - docker network create --subnet 192.168.0.0/16 my-subnet
-
-	- 24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f
-	- "Gateway": "192.168.0.1"
- 		- Default route for containers.
-	- "Subnet": "192.168.0.0/16"
-		- containers associated to this network will have IP addess from 192.168.0.2, 192.168.0.3 and so on..
+	
+			- 24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f
+  
+	- create docker network with **subnet option**
     - /16 CIDR means the first 16 bits are the network prefix, the remaining 16 bits are the host part.
 	- Netmask (binary) = 11111111.11111111.00000000.00000000 → decimal 255.255.0.0.
 	- **Network address** = keep the network bits, zero out the host bits → **192.168.0.0.**
@@ -339,22 +337,29 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 						}
 					}
 				]
+
+	- In the above response - 
+
+   			"Gateway": "192.168.0.1" - Default route for containers.
+			"Subnet": "192.168.0.0/16" - containers associated to this network will have IP addess from 192.168.0.2, 192.168.0.3 and so on..
 			
 
 - docker run -d --network my-subnet demo-app-service:latest
-			
+	- create first container with network. 			
 			
 				cfe15b9705afcebad06097e7f507c69dcdb488e4d4905fbe5af942dfbdd6eb51
 
 
 - docker run -d --network my-subnet redis:7-alpine
-			
+	- create second container with network.			
 			
 				ca6205bebf98439844f694866898962eac6a4a80bb8d25afcd2237ed5e73ddf9
 
 
 - docker inspect 24a615e9d4fe
-				
+	- now inspect network. it will show all the container associated to this network.
+ 	- The IP address of these containers will be decided by the subnet of the network.
+  	- It's range 192.168.0.2 to 192.168.255.255		
 				
 				[
 					{
