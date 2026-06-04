@@ -277,15 +277,23 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 # docker network subnet
 
-- PS C:\Windows\System32> docker network create --subnet 192.168.0.0/16 my-subnet
+- docker network create --subnet 192.168.0.0/16 my-subnet
 
 	- 24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f
 	- "Gateway": "192.168.0.1"
+ 		- Default route for containers.
 	- "Subnet": "192.168.0.0/16"
-			- containers associated to this network will have IP addess from 192.168.0.2 to 192.168.0.16.
+		- containers associated to this network will have IP addess from 192.168.0.2, 192.168.0.3 and so on..
+    - /16 CIDR means the first 16 bits are the network prefix, the remaining 16 bits are the host part.
+	- Netmask (binary) = 11111111.11111111.00000000.00000000 → decimal 255.255.0.0.
+	- **Network address** = keep the network bits, zero out the host bits → **192.168.0.0.**
+	- **Broadcast address** = keep the network bits, set all host bits to 1 → **192.168.255.255.**
+	- **First host** ( gateway ) = network address + 1 → **192.168.0.1.**
+   	- **Second host** ( first container) = network address + 1 → **192.168.0.2.**
+	- **Last host** ( last container) = broadcast address – 1 → **192.168.255.254.**
 
-- PS C:\Windows\System32> docker inspect 24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f
-		
+- docker inspect 24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f
+	- 24a615e9d4fef17fcad6ac747ee2e33c9fb981e14fe0265791e55c8abdd04b2f = network id
 		
 				[
 					{
@@ -333,19 +341,19 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 				]
 			
 
-- PS C:\Windows\System32> docker run -d --network my-subnet demo-app-service:latest
+- docker run -d --network my-subnet demo-app-service:latest
 			
 			
 				cfe15b9705afcebad06097e7f507c69dcdb488e4d4905fbe5af942dfbdd6eb51
 
 
-- PS C:\Windows\System32> docker run -d --network my-subnet redis:7-alpine
+- docker run -d --network my-subnet redis:7-alpine
 			
 			
 				ca6205bebf98439844f694866898962eac6a4a80bb8d25afcd2237ed5e73ddf9
 
 
-- PS C:\Windows\System32> docker inspect 24a615e9d4fe
+- docker inspect 24a615e9d4fe
 				
 				
 				[
@@ -624,21 +632,21 @@ When you run a container without extra flags it gets a bridge network (a private
 		- **Error response from daemon: remove hello: volume is in use - [667acfd66ca9c28deab9ca460608c56da2933e94849af920da4f24d88186b11f]**
 
 # Create Volume, Mount inside container and Write on this mount
-- PS C:\Windows\System32> docker volume create **my-volume**
+- docker volume create **my-volume**
 	- my-volume
 	
-- PS C:\Windows\System32> docker volume ls
+- docker volume ls
 	- DRIVER    VOLUME NAME
 	- local     **my-volume**
 	
-- PS C:\Windows\System32> docker run -d -p 8080:8080 -v **my-volume**:/**folder-inside-container** my-app:1.1
+- docker run -d -p 8080:8080 -v **my-volume**:/**folder-inside-container** my-app:1.1
 	- c04f2e37c24dbc701ce87b55dca941bb51957838d6c573ba9689883874384f80
 	
-- PS C:\Windows\System32> docker ps
+- docker ps
 	- CONTAINER ID   IMAGE        COMMAND               CREATED          STATUS          PORTS                                         NAMES
 	- c04f2e37c24d   my-app:1.1   "java -jar app.jar"   13 seconds ago   Up 13 seconds   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   confident_carson
 	
-- PS C:\Windows\System32> docker debug c04f2e37c24d
+- docker debug c04f2e37c24d
 - root@c04f2e37c24d /app [confident_carson]
 	- docker > ls
 	- app.jar
@@ -669,15 +677,15 @@ When you run a container without extra flags it gets a bridge network (a private
   
 # Mount same volume inside another container & another folder and read it
 
-- PS C:\Windows\System32> docker run -d -p 8081:8080 -v **my-volume**:/**another-folder** my-app:1.1
+- docker run -d -p 8081:8080 -v **my-volume**:/**another-folder** my-app:1.1
 	- 3c1809c99bb83b8dad993c57dffc6a37c1a54ec39e56ef78e22afb8201389ea2
 	
-- PS C:\Windows\System32> docker ps
+- docker ps
 	- CONTAINER ID   IMAGE        COMMAND               CREATED          STATUS          PORTS                                         NAMES
 	- 3c1809c99bb8   my-app:1.1   "java -jar app.jar"   9 seconds ago    Up 8 seconds    0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp   recursing_yalow
 	- c04f2e37c24d   my-app:1.1   "java -jar app.jar"   11 minutes ago   Up 11 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   confident_carson
 	
-- PS C:\Windows\System32> docker debug 3c1809c99bb8
+- docker debug 3c1809c99bb8
 - root@3c1809c99bb8 /app [recursing_yalow]
 	- docker > ls
 	- app.jar
