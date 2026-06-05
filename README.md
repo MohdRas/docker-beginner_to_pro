@@ -92,6 +92,10 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 	- multiples can be created & can be removed.
 	- we can only create **"bridge"** driver type networks. The **"host"** and **"null"** driver type networks cannnot be created.
 	- docker network ls **-f type=custom** 
+	- On a bridge network you can only create a single subnet: **docker network create --driver=bridge --subnet=192.168.0.0/16 br0**
+
+
+ docker network create --driver=bridge --subnet=192.168.0.0/16 br0
 
 
 # docker network create
