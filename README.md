@@ -73,6 +73,10 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 - https://www.youtube.com/watch?v=bKFMS5C4CG0
 - *bridge, none, host* are pre-defined network and cannot be removed ( docker network rm <NETWORK_ID> )
 - You can connect multiple containers to the same network. Once connected, the containers can communicate using only another container's IP address or name.
+	- Docker’s DNS service (the internal 127.0.0.11 resolver) is only enabled on user‑defined networks (networks you create with docker network create).
+ 	- containers connected to default bridge network cannot communicate to each other via container name but can do via IP.
+  		- ping container_name  - will fail from inside of another container for default bridge network
+		- ping IP  - will work from inside of another container for default bridge network
 - built-in DNS server run on IP 171.17.0.11
     - DNS server will resolve CONTAINER_NAME to IP_ADDRESS.
  
