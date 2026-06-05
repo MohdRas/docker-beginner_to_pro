@@ -440,7 +440,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
         - IP 172.17.0.2 aasigned to first container
         - IP 172.17.0.3 assigned to second container
         - and so on...
-        - till 172.17.0.16
+        - till 172.17.255.255
     - docker run -d redis
     	- The **"default bridge"** network (isolated).
   	- docker run -d -p 8080:80 redis
@@ -459,17 +459,20 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
             - ping 172.17.0.3
             - ping google.com
             - "ip route" command
-                - it will show "default via 172.17.0.1" which means routing via interface docker0 ( 172.17.0.1 )
+                - it will show "default via 172.17.0.1" which means routing via **interface docker0 ( 172.17.0.1 )**
+                - The default gateway for the container is 172.17.0.1 on interface eth0.
+                - All traffic that does not belong to the 172.17.0.0/16 network will be sent to the **Docker bridge (docker0) at 172.17.0.1**, which will then NAT it out to the host’s network (or another Docker network).
+                - 
        - inside CONTAINER_2 (nginx-container) IP 172.17.0.3
             - ping 172.17.0.2 
             - ping google.com
         - CHALLENGE
             - our application(container) want to connect to database (container).
-            - after container restart, new IP address will be assiged, so communication using IPs is not correct.
+            - **after container restart, new IP address will be assiged, so communication using IPs is not correct.**
         - SOLUTION
           - "user-defined" Bridge  
               - "user-defined" network is isolated from all other networks ( default, none & host). can't talk to them.
-              - docker network create --driver bridge --subnet 182.8.x.x/16 custom-isolated-network
+              - **docker network create --driver bridge --subnet 182.8.x.x/16 custom-isolated-network**
               - "custom-isolated-network" is the name of the user-defined network.
               - containers of this network communicate with each other using NAMES.
                   - mysql.connect(CONTAINER_NAME)
