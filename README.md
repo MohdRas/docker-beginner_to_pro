@@ -431,16 +431,33 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 
 # DNS 
+- Only when a container is attached to a user‑defined bridge (or an overlay network).
+- The default bridge (docker0) never gets an embedded DNS; containers on that network rely on the host’s /etc/resolv.conf.
+- If you need containers to talk to each other by name:
+
+		- docker network create mynet
+		- docker run -d --name web  --network mynet nginx
+		- docker run -d --name api  --network mynet nginx
+  
+# inside any of them: ping web   (or ping web.mynet)
 # 1️⃣ default bridge (what you already have)
 	- docker run -d --name web nginx      # <-- uses default bridge
 	- docker exec web cat /etc/resolv.conf
 		- shows the host DNS (e.g., 192.168.65.7)
+	- Because you started the container on the default bridge (docker0). In that mode Docker does not start the embedded DNS, so the file you see is the host‑derived resolv.conf (nameserver 192.168.65.7). If you create a custom network, the address changes to 127.0.0.11.
 
 # 2️⃣ user‑defined bridge (embedded DNS)
 	- docker network create mynet
 	- docker run -d --name api --network mynet nginx
 	- docker exec api cat /etc/resolv.conf
 		- nameserver 127.0.0.11
+# /etc/hosts inside the container
+		- 127.0.0.1 localhost – the normal loop‑back entry (the container’s own “self”).
+		- 172.17.0.2 124afd422cce – the IP address that Docker gave the container on the default bridge network followed by the container’s short‑ID. It is not the human‑readable name you gave with --name.
+# /etc/resolv.conf inside the container
+		- nameserver 192.168.65.7 – Docker simply copied the DNS server(s) that the host is using (or that the host’s DHCP gave it). The container will send all DNS queries to that address, not to Docker’s internal DNS.
+		- nameserver 127.0.0.11 – When you attach a container to a user‑defined bridge network (or to an overlay network in Swarm/K8s), Docker starts a tiny DNS server inside the Docker daemon and binds it into every such container’s network namespace at the address 127.0.0.11
+		
 
 # Network Types 
 - **default bridge driver ( network type )**
