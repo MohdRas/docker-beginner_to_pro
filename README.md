@@ -430,7 +430,17 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 				]
 
 
-   			
+# DNS 
+# 1️⃣ default bridge (what you already have)
+	- docker run -d --name web nginx      # <-- uses default bridge
+	- docker exec web cat /etc/resolv.conf
+		- shows the host DNS (e.g., 192.168.65.7)
+
+# 2️⃣ user‑defined bridge (embedded DNS)
+	- docker network create mynet
+	- docker run -d --name api --network mynet nginx
+	- docker exec api cat /etc/resolv.conf
+		- nameserver 127.0.0.11
 
 # Network Types 
 - **default bridge driver ( network type )**
