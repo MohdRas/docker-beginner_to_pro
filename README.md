@@ -439,7 +439,8 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 		- docker run -d --name web  --network mynet nginx
 		- docker run -d --name api  --network mynet nginx
   
-# inside any of them: ping web   (or ping web.mynet)
+	- inside any of them: ping web   (or ping web.mynet)
+
 # 1️⃣ default bridge (what you already have)
 	- docker run -d --name web nginx      # <-- uses default bridge
 	- docker exec web cat /etc/resolv.conf
