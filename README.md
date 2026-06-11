@@ -470,7 +470,11 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
             - our application(container) want to connect to database (container).
             - **after container restart, new IP address will be assiged, so communication using IPs is not correct.**
         - SOLUTION
-          - "user-defined" Bridge  
+          - "user-defined" Bridge
+              - **Name registration** – The daemon registers the name web (and any --network-alias you supplied) with the embedded DNS, associating it with 172.18.0.2.
+              - Every container on a user‑defined bridge gets a private /etc/resolv.conf that points to the IP 127.0.0.11 – Docker’s embedded DNS server (a tiny dnsmasq instance running inside the Docker daemon).
+ 			  - The daemon registers each container’s name (and any network aliases) with that embedded DNS.
+			  - When a container asks the resolver library to resolve my‑service, the query is sent to 127.0.0.11. The embedded DNS replies with the container’s current IP address on that network.
               - "user-defined" network is isolated from all other networks ( default, none & host). can't talk to them.
               - **docker network create --driver bridge --subnet 182.8.x.x/16 custom-isolated-network**
               - "custom-isolated-network" is the name of the user-defined network.
