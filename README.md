@@ -5,23 +5,24 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 - Linux fundamentals - Basic Linux commands
 
 # History & Motivation
-- Docker helps to make local env as close as to production env where we are gonna deploy our application.
+- Docker helps to make **local env as close as to production env** where we are gonna deploy our application.
 - setting up development env is easy. Just one command "docker compose up"
 - earlier we need "deploment binary(JAR/WAR)", "dependencies", "configurations" to deploy an application. But with containers, just run this container image with these options.
 # Technology overview
-- containers
-  - "lightweight", "standalone", "executable" package of software. This PACKAGE include "everything to run an application".
+- container image
+  - "lightweight", "standalone", "executable" package of software. This PACKAGE include **"everything to run an application".**
 - Open Container Initiative - OCI
-  - defines specification for containers.
-    - Runtime specification
-      - How you take an image and run it in a container ? 
-    - Image specification
-      - What format and metadata an image should include?
-    - Distribution specification
-      - How those images should be distributed.
-      - registry, pulling & pushing of the images.
+  - OCI is defines **open industry standards around what a container is and how should it run**
   - Docker, Google, VMWare, Microsoft & Dell has their "own implemention" of this "specification for containers".
-- dockers
+  - defines specification for containers.
+    - **Image** specification
+      - What **format and metadata**, an image should include?
+    - **Runtime** specification
+      - How you **take an image and run** it in a container ? 
+    - **Distribution** specification
+      - How those images should be distributed ( **registry, pulling & pushing** of the images.)
+    
+- **docker is a specific implementaion of this specification.**
 - Evaluation of Virtualization
   - https://medium.com/@dncgr8/vms-vs-container-191ed90c8019
   - https://erik-engheim.medium.com/containers-vs-vms-a80fe0f9a549
