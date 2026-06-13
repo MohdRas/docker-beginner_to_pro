@@ -31,42 +31,37 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
   
   - Bare Metal
       - running applications directly on hardware/host itself.
+      - Challenges
+            - slow start up & shut down speed ( in minutes)
+			- **Dependency hell**
+				- Both applications share the same binaries/libraries. Issue if both applications need different dependencies or some dependecies are not compatible with each other. This is known as **dependency hell**.
+
 
 					|----------------------------------------------------------------------------|                                                                            |
 					|          ----------------------------------------------------              |
 					|          |                          |                         |            |
 					|          |    Application #1        |  Application #2         |            |
-					|          |                          |                         |            |
 					|          ---------------------------|-------------------------             |
 					|                                                                            |
 					|          ----------------------------------------------------              |
-					|          |                                                   |             |
 					|          |                Binaries /Libraries                |             |
 					|          |                to run applications                |             |
 					|          ----------------------------------------------------              |
 					|                                                                            |
 					|          ----------------------------------------------------              |
-					|          |                                                   |             |
-					|          |                                                   |             |
 					|          |                     os                            |             |
 					|          ----------------------------------------------------              |
 					|          														             |
 					|                                                                            |
-					|          ----------------------------------------------------              |
-					|          |                                                   |             |
-					|          |                  hardware                                       |
-					|          |                                                   |             |
-					|          ----------------------------------------------------              |
+					|          |----------------------------------------------------|            |
+					|          |                  hardware                          |            |
+					|          |----------------------------------------------------|            |
 					|                                                                            | 
-					|                                                                            |
 					|                                                                            |
 					|                 Physical machine ( bare metal) / HOST                      |
 					|-----------------------------------------------------------------------------
 
-		- Challenges 
-			- **Dependency hell**
-				- Both applications share the same binaries/libraries. Issue if both applications need different dependencies or some dependecies are not compatible with each other. This is known as **dependency hell**.
-            - slow start up & shut down speed ( in minutes)
+
 				
 
   - Vitual Machine
