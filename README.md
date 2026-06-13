@@ -138,6 +138,38 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
       - Docker Compose : Allows you to define and run multi-container Docker applications.
       - Docker Swarm : A clustering and orchestration tool for Docker containers.
   - In summary, the reduced isolation and dependence on the host OS of containers bring both advantages in terms of performance and efficiency, as well as certain disadvantages, particularly in terms of security and portability. These factors must be considered when deciding whether to use containers or VMs for a particular application.
+
+				
+				|------------------------------------------------------------------------------------| 
+				|																			         |
+				|																			         |
+				|                    Container 1                     Container 2                     |
+				|          |---------------------------|      |-----------------------|              |
+				|          |                           |      |                       |              |
+				|          |        Applicaton #1      |      |   Applicaton #1       |              |
+				|          |---------------------------|      |---------------------- |              |
+				|          |                           |      |                       |              |
+						   |        Binaries           |      |     Binaries          |              |
+				|          |        Libraries          |      |     Libraries         |              |
+				|          |---------------------------|      |---------------------- |              |
+				|                                                                                    |
+				|                                                                                    |
+				|          |----------------------------------------------------------|              |
+				|          |                   Container runtime                      |              |
+				|          |----------------------------------------------------------|              |
+				|          														      |              |
+				|          |--------------------------------------------------------- |              |
+				|          |                  Operating System                        |              |
+				|          |--------------------------------------------------------- |              |
+				|                                                                     |              |
+				|          |--------------------------------------------------------- |              |
+				|          |          (virtual or physical) hardware                  |              |
+				|          |--------------------------------------------------------- |              |
+				|                                                                                    |
+				|                                                                                    |
+				|                           Physical machine                                         |
+				|------------------------------------------------------------------------------------|
+    
 # Installation / Setup -  Hello World
 
 # Using 3rd Party Containers
