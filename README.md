@@ -29,7 +29,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
   - https://mkaschke.medium.com/virtual-machine-vm-vs-container-13ab51f4c177
   - https://medium.com/@marco.lindner/kernkonzepte-container-vs-vms-images-container-docker-engine-3eb1e5ac8067
   
-  - Bare Metal
+  - **Bare Metal**
     - running applications directly on hardware/host itself.
 	- slow start up & shut down speed ( in minutes)
 	- **Dependency hell**
@@ -63,60 +63,64 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 				
 
-  - Vitual Machine
+  - **Vitual Machine**
   	- Hypervisor 
 			-  some combination of software/hardware that allows us to carve up the pool of physical resources ( cpu, ram, rom, networking etc) to smaller pool that allows us to install our system on to.
-    - each VM has its own Guest OS and it's Kernel through HYPERVISOR ( Type1 or Type2 )
-    - Hypervisors can sit directly on top of the hardware (type-1) or on top of an OS (type-2)
+    - each VM has its own **Guest OS and it's Kernel** through HYPERVISOR ( Type1 or Type2 )
+    - **Hypervisors can sit directly on top of the hardware (type-1) or on top of an OS (type-2)**
+    - Type 1 = Hyper-v (microsoft), vSphere ( vmware) and aws nitro system.
+	- Type 2 = VirtualBox - to create virtual machines on your laptop.
     - multiple OS instances run on single host machine.
-    - A Hypervisor is a software that imitates a particular piece of computer hardware or the entire computer.
-    - Hypervisor allow the available physical resources to be partitioned into multiple virtual ones, called Virtual Machines (VMs).
+    - **A Hypervisor is a software that imitates a particular piece of computer hardware or the entire computer.**
+    - **Hypervisor allow the available physical resources to be partitioned into multiple virtual ones, called Virtual Machines (VMs).**
     - The computer that runs a hypervisor is called the Host System(laptop, server, vm on ec2), and the VMs created and managed by the hypervisor are called the Guest Systems.
     - PROBLEM
           - each VM virtualizes an entire operating system and its underlying hardware.
 
-				|----------------------------------------------------------------------------| 
-				|																			 |
-				|																			 |
-				|                       VM2                        VM2                       |
-				|          |--------------------------------------------------- |            |
-				|          |            |              |            |           |            |
-				|          |  App#1     |    app #2    |   App #3   | App #4    |            |
-				|          |------------|--------------|------------|---------- |            |
-				|          |                           |                        |            |
-						   |        Binaries           |      Binaries          |            |
-				|          |        Libraries          |      Libraries         |            |
-				|          |---------------------------|----------------------- |            |
-				|          |                           |                        |            |
-				|          |         OS                |       OS               |            |
-				|          |---------------------------|----------------------- |            |
-				|          |                           |                        |            |
-				|		   |                           |                        |            |
-				|		   |    Virtual hardware       |  Virtual hardware      |            |
-				|		   |                           |                        |            |
-				|		   |--------------------------------------------------- |            |
-				|                                                                            |
-				|                                                                            |
-				|                                                                            |
-				|                                                                            |			
-				|          |--------------------------------------------------- |            |
-				|          |                     Hypervisor                     |            |
-				|          |--------------------------------------------------- |            |
-				|          														|            |
-				|          |--------------------------------------------------- |            |
-				|          |                  OS - if type 2 hypervisor         |            |
-				|          |--------------------------------------------------- |            |
-				|                                                               |            |
-				|          |--------------------------------------------------- |            |
-				|          |                  hardware                          |            |
-				|          |--------------------------------------------------- |            |
-				|                                                                            |
-				|                                                                            |
-				|                           Physical machine                                 |
-				|-----------------------------------------------------------------------------
 
 
-  - Containers
+				|------------------------------------------------------------------------------------| 
+				|																			         |
+				|																			         |
+				|                       VM2                        VM2                               |
+				|          |---------------------------|       |----------------------|              |
+				|          |            |              |      |           |           |              |
+				|          |  App#1     |    app #2    |      |  App #3   | App #4    |              |
+				|          |------------|--------------|      |-----------|---------- |              |
+				|          |                           |      |                       |              |
+						   |        Binaries           |      |     Binaries          |              |
+				|          |        Libraries          |      |     Libraries         |              |
+				|          |---------------------------|      |---------------------- |              |
+				|          |                           |      |                       |              |
+				|          |         OS                |      |      OS               |              |
+				|          |---------------------------|      |---------------------- |              |
+				|          |                           |      |                       |              |
+				|		   |                           |      |                       |              |
+				|		   |    Virtual hardware       |      | Virtual hardware      |              |
+				|		   |                           |      |                       |              |
+				|		   |-----------------------------     |---------------------- |              |
+				|                                                                                    |
+				|                                                                                    |
+				|                                                                                    |
+				|                                                                                    |
+				|          |--------------------------------------------------- |                    |
+				|          |                     Hypervisor                     |                    |
+				|          |--------------------------------------------------- |                    |
+				|          														|                    |
+				|          |--------------------------------------------------- |                    |
+				|          |                  OS - if type 2 hypervisor         |                    |
+				|          |--------------------------------------------------- |                    |
+				|                                                               |                    |
+				|          |--------------------------------------------------- |                    |
+				|          |                  hardware                          |                    |
+				|          |--------------------------------------------------- |                    |
+				|                                                                                    |
+				|                                                                                    |
+				|                           Physical machine                                         |
+				|------------------------------------------------------------------------------------|
+
+
+  - **Containers**
     - All containers running on a host machine, share the OS kernel of the Host System, and only contain the application(s) and their libraries and dependencies.
     - each container uses Host OS and it's Kernel through Docker Engine.
     - Faster STARTUP, Less RESOURCES (lightweight)
