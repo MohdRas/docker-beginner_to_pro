@@ -30,7 +30,46 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
   - https://medium.com/@marco.lindner/kernkonzepte-container-vs-vms-images-container-docker-engine-3eb1e5ac8067
   
   - Bare Metal
-      - Bare Metal
+      - running applications directly on hardware itself.
+
+					|----------------------------------------------------------------------------|                                                                            |
+					|          ----------------------------------------------------              |
+					|          |                          |                         |            |
+					|          |    Application #1        |  Application #2         |            |
+					|          |                          |                         |            |
+					|          ---------------------------|-------------------------             |
+					|                      														 |
+					|                                                                            |
+					|                                                                            |
+					|          ----------------------------------------------------              |
+					|          |                                                   |             |
+					|          |                Binaries /Libraries                |             |
+					|          |                                                   |             |
+					|          ----------------------------------------------------              |
+					|                                                                            |
+					|                                                                            |
+					|                                                                            |
+					|          ----------------------------------------------------              |
+					|          |                                                   |             |
+					|          |                                                   |             |
+					|          |                     os                            |             |
+					|          ----------------------------------------------------              |
+					|          														             |
+					|          														             |
+					|          														             |
+					|          														             |
+					|                                                                            |
+					|          ----------------------------------------------------              |
+					|          |                                                   |             |
+					|          |                  hardware                                       |
+					|          |                                                   |             |
+					|          ----------------------------------------------------              |
+					|                                                                            | 
+					|                                                                            |
+					|                                                                            |
+					|                 Physical machine ( bare metal) / HOST                      |
+					|-----------------------------------------------------------------------------
+
   - Vitual Machine
     - each VM has its own Guest OS and it's Kernel through HYPERVISOR ( Type1 or Type2 )
     - Hypervisors can sit directly on top of the hardware (type-1) or on top of an OS (type-2)
