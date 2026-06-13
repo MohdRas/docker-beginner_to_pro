@@ -30,7 +30,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
   - https://medium.com/@marco.lindner/kernkonzepte-container-vs-vms-images-container-docker-engine-3eb1e5ac8067
   
   - Bare Metal
-      - running applications directly on hardware itself.
+      - running applications directly on hardware/host itself.
 
 					|----------------------------------------------------------------------------|                                                                            |
 					|          ----------------------------------------------------              |
@@ -62,6 +62,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					|                                                                            |
 					|                 Physical machine ( bare metal) / HOST                      |
 					|-----------------------------------------------------------------------------
+
+		- Challenges 
+			- **Dependency hell**
+				- Both applications share the same binaries/libraries. Issue if both applications need different dependencies or some dependecies are not compatible with each other. This is known as **dependency hell**.
+            - slow start up & shut down speed ( in minutes)
+				
 
   - Vitual Machine
     - each VM has its own Guest OS and it's Kernel through HYPERVISOR ( Type1 or Type2 )
