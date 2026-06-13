@@ -49,7 +49,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					|          |----------------------------------------------------|            |
 					|                                                                            |
 					|          ----------------------------------------------------              |
-					|          |                     os                             |            |
+					|          |                      OS & Kernel                   |            |
 					|          ----------------------------------------------------              |
 					|          														             |
 					|                                                                            |
@@ -96,7 +96,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 				|          |        Libraries          |      |     Libraries         |              |
 				|          |---------------------------|      |---------------------- |              |
 				|          |                           |      |                       |              |
-				|          |         OS                |      |      OS               |              |
+				|          |         OS & Kernel       |      |       OS & Kernel     |              |
 				|          |---------------------------|      |---------------------- |              |
 				|          |                           |      |                       |              |
 				|		   |                           |      |                       |              |
@@ -113,7 +113,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 				|          														                     |
 				|          														                     |
 				|          |----------------------------------------------------------|              |
-				|          |                  OS - if type 2 hypervisor               |              |
+				|          |                  OS & Kernel - type 2 hypervisor         |              |
 				|          |----------------------------------------------------------|              |
 				|                                                                                    |
 				|                                                                                    |
@@ -127,12 +127,20 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 
   - **Containers**
-    - All containers running on a host machine, share the OS kernel of the Host System, and only contain the application(s) and their libraries and dependencies.
-    - each container uses Host OS and it's Kernel through Docker Engine.
-    - Faster STARTUP, Less RESOURCES (lightweight)
-    - Less ISOLATION as compared to VMs.
-    - Host OS COMPATIBILITY ISSUE
-        - Linux container will run on a Linux host, but not on a Windows host
+  	- **Virtual machines are running own copy of linux kernel but container sharing the kernel of the host operating system.**
+    - Desktop container platforms (**docker or podman**) - container management systems - we installed them on our laptop - they manages containers end to end.
+    - Container runtimes (**container-D or Cri-O**)- take container image and run it.
+    - All containers share the OS kernel of the Host System, and container itself has only the application, libraries, dependencies & configurations.
+    - **each container uses Host OS and it's Kernel through Docker Engine.**
+    - **No dependency hell.**
+    - **even faster startup & shutdown speed (in secs)**
+    - **even faster provisioning & decommissioning ( in secs)**
+    - **Less ISOLATION as compared to VMs.**
+    - Virtual machines + containers
+    	- virtual machines on physical machines and containers on those virtual machines.
+       	- how to manage containers across those virtual machines -> **orchestrators comes into picture like kubernetes to manage/schedule these containers across multiple nodes (VMs)**
+    - **Host OS COMPATIBILITY ISSUE**
+        - Linux container will run on a Linux host, but not on a Windows host.
     - Docker Engine
       - Docker Daemon (`dockerd`): Manages Docker objects such as containers, images, networks, and volumes.
       - REST API: Provides a programmable interface that allows various tools to interact with the Docker daemon.
@@ -162,7 +170,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 				|          														                     |
                 |          														                     |
 				|          |--------------------------------------------------------- |              |
-				|          |                  Operating System                        |              |
+				|          |                  OS & Kernel                             |              |
 				|          |--------------------------------------------------------- |              |
 				|                                                                                    |
      			|          														                     |
@@ -171,7 +179,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 				|          |--------------------------------------------------------- |              |
 				|                                                                                    |
 				|                                                                                    |
-				|                           Physical machine                                         |
+				|                           Physical or virtual machine                              |
 				|------------------------------------------------------------------------------------|
     
 # Installation / Setup -  Hello World
