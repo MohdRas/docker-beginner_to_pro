@@ -72,6 +72,48 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
     - The computer that runs a hypervisor is called the Host System(laptop, server, vm on ec2), and the VMs created and managed by the hypervisor are called the Guest Systems.
     - PROBLEM
           - each VM virtualizes an entire operating system and its underlying hardware.
+
+									|----------------------------------------------------------------------------| 
+				|																			 |
+				|																			 |
+				|                       VM2                        VM2                       |
+				|          |--------------------------------------------------- |            |
+				|          |            |              |            |           |            |
+				|          |  App#1     |    app #2    |   App #3   | App #4    |            |
+				|          |------------|--------------|------------|---------- |            |
+				|          |                           |                        |            |
+						   |        Binaries           |      Binaries          |            |
+				|          |        Libraries          |      Libraries         |            |
+				|          |---------------------------|----------------------- |            |
+				|          |                           |                        |            |
+				|          |         OS                |       OS               |            |
+				|          |---------------------------|----------------------- |            |
+				|          |                           |                        |            |
+				|		   |                           |                        |            |
+				|		   |    Virtual hardware       |  Virtual hardware      |            |
+				|		   |                           |                        |            |
+				|		   |--------------------------------------------------- |            |
+				|                                                                            |
+				|                                                                            |
+				|                                                                            |
+				|                                                                            |			
+				|          |--------------------------------------------------- |            |
+				|          |                     Hypervisor                     |            |
+				|          |--------------------------------------------------- |            |
+				|          														|            |
+				|          |--------------------------------------------------- |            |
+				|          |                  OS - if type 2 hypervisor         |            |
+				|          |--------------------------------------------------- |            |
+				|                                                               |            |
+				|          |--------------------------------------------------- |            |
+				|          |                  hardware                          |            |
+				|          |--------------------------------------------------- |            |
+				|                                                                            |
+				|                                                                            |
+				|                           Physical machine                                 |
+				|-----------------------------------------------------------------------------
+
+
   - Containers
     - All containers running on a host machine, share the OS kernel of the Host System, and only contain the application(s) and their libraries and dependencies.
     - each container uses Host OS and it's Kernel through Docker Engine.
