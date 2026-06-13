@@ -148,6 +148,33 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
       - Docker Compose : Allows you to define and run multi-container Docker applications.
       - Docker Swarm : A clustering and orchestration tool for Docker containers.
   - In summary, the reduced isolation and dependence on the host OS of containers bring both advantages in terms of performance and efficiency, as well as certain disadvantages, particularly in terms of security and portability. These factors must be considered when deciding whether to use containers or VMs for a particular application.
+ 
+  # Linux building blocks = CGROUPS, NAMESPACES & UNION file system
+  - Foundational linux kernel feature that docker is using to make the magic of containers happen and provide the isolation environment.
+  - Namespaces - application isolation
+	  - Namespace wraps the global system resource into an abstraction.
+	  - Namespace creates **isolated instance** of that global resource and the resource is only accessible within that namespace.
+  - control groups ( cgroups) -  resource constraints
+  		- cat /proc/cgroups
+
+				PS C:\Windows\system32> wsl -d Ubuntu
+				mohdrasid@mohd-rasid01:/mnt/c/Windows/system32$ cat /proc/cgroups
+				#subsys_name    hierarchy       num_cgroups     enabled
+				cpuset  0       62      1
+				cpu     0       62      1
+				cpuacct 0       62      1
+				blkio   0       62      1
+				memory  0       62      1
+				devices 0       62      1
+				freezer 0       62      1
+				net_cls 0       62      1
+				perf_event      0       62      1
+				net_prio        0       62      1
+				hugetlb 0       62      1
+				pids    0       62      1
+				rdma    0       62      1
+  - Union Filesystem
+  - 
 
 				
 				|------------------------------------------------------------------------------------| 
