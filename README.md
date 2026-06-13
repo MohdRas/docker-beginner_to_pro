@@ -64,6 +64,8 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 				
 
   - Vitual Machine
+  	- Hypervisor 
+			-  some combination of software/hardware that allows us to carve up the pool of physical resources ( cpu, ram, rom, networking etc) to smaller pool that allows us to install our system on to.
     - each VM has its own Guest OS and it's Kernel through HYPERVISOR ( Type1 or Type2 )
     - Hypervisors can sit directly on top of the hardware (type-1) or on top of an OS (type-2)
     - multiple OS instances run on single host machine.
@@ -73,7 +75,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
     - PROBLEM
           - each VM virtualizes an entire operating system and its underlying hardware.
 
-									|----------------------------------------------------------------------------| 
+				|----------------------------------------------------------------------------| 
 				|																			 |
 				|																			 |
 				|                       VM2                        VM2                       |
