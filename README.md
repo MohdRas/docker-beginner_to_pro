@@ -31,7 +31,8 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
   
   - **Bare Metal**
     - running applications directly on hardware/host itself.
-	- slow start up & shut down speed ( in minutes)
+	- slow startup & shutdown speed ( in minutes)
+  	- slower provisioning & decommissioning ( in minutes)
 	- **Dependency hell**
 			- Both applications share the same binaries/libraries. Issue if both applications need different dependencies or some dependecies are not compatible with each other. This is known as **dependency hell**.
 
@@ -74,8 +75,11 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
     - **A Hypervisor is a software that imitates a particular piece of computer hardware or the entire computer.**
     - **Hypervisor allow the available physical resources to be partitioned into multiple virtual ones, called Virtual Machines (VMs).**
     - The computer that runs a hypervisor is called the Host System(laptop, server, vm on ec2), and the VMs created and managed by the hypervisor are called the Guest Systems.
+    - faster startup & shutdown speed (in minutes)
+    - faster provisioning & decommissioning ( in minutes)
+	- **No Dependency hell**
     - PROBLEM
-          - each VM virtualizes an entire operating system and its underlying hardware.
+          - each VM virtualizes **an entire operating system and its underlying hardware.**
 
 
 
