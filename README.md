@@ -3,6 +3,38 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 # Prerequisite
 - Linux fundamentals - Basic Linux commands
+- 
+# Linux building blocks = CGROUPS, NAMESPACES & UNION file system
+- Foundational linux kernel feature that docker is using to make the magic of containers happen and provide the isolation environment.
+- Namespaces - application isolation
+	- Namespace wraps the global system resource into an abstraction.
+	- Namespace creates **isolated instance** of that global resource and the resource is only accessible within that namespace.
+- control groups ( cgroups) -  resource constraints
+	- cat /proc/cgroups
+	- With cgroups, a container runtime is able to specify that a container should be able to use (for example):
+		- Use up to XX% of CPU cycles (cpu.shares)
+		- Use up to YY MB Memory (memory.limit_in_bytes)
+		- Throttle reads to ZZ MB/s (blkio.throttle.read_bps_device)
+
+				PS C:\Windows\system32> wsl -d Ubuntu
+				mohdrasid@mohd-rasid01:/mnt/c/Windows/system32$ cat /proc/cgroups
+				#subsys_name    hierarchy       num_cgroups     enabled
+				cpuset  0       62      1
+				cpu     0       62      1
+				cpuacct 0       62      1
+				blkio   0       62      1
+				memory  0       62      1
+				devices 0       62      1
+				freezer 0       62      1
+				net_cls 0       62      1
+				perf_event      0       62      1
+				net_prio        0       62      1
+				hugetlb 0       62      1
+				pids    0       62      1
+				rdma    0       62      1
+  - Union Filesystem
+  - 
+
 
 # History & Motivation
 - Docker helps to make **local env as close as to production env** where we are gonna deploy our application.
@@ -23,7 +55,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
       - How those images should be distributed ( **registry, pulling & pushing** of the images.)
     
 - **docker is a specific implementaion of this specification.**
-- Evaluation of Virtualization
+ - **Evaluation of Virtualization**
   - https://medium.com/@dncgr8/vms-vs-container-191ed90c8019
   - https://erik-engheim.medium.com/containers-vs-vms-a80fe0f9a549
   - https://mkaschke.medium.com/virtual-machine-vm-vs-container-13ab51f4c177
@@ -149,37 +181,6 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
       - Docker Swarm : A clustering and orchestration tool for Docker containers.
   - In summary, the reduced isolation and dependence on the host OS of containers bring both advantages in terms of performance and efficiency, as well as certain disadvantages, particularly in terms of security and portability. These factors must be considered when deciding whether to use containers or VMs for a particular application.
  
-# Linux building blocks = CGROUPS, NAMESPACES & UNION file system
-- Foundational linux kernel feature that docker is using to make the magic of containers happen and provide the isolation environment.
-- Namespaces - application isolation
-	- Namespace wraps the global system resource into an abstraction.
-	- Namespace creates **isolated instance** of that global resource and the resource is only accessible within that namespace.
-- control groups ( cgroups) -  resource constraints
-	- cat /proc/cgroups
-	- With cgroups, a container runtime is able to specify that a container should be able to use (for example):
-		- Use up to XX% of CPU cycles (cpu.shares)
-		- Use up to YY MB Memory (memory.limit_in_bytes)
-		- Throttle reads to ZZ MB/s (blkio.throttle.read_bps_device)
-
-				PS C:\Windows\system32> wsl -d Ubuntu
-				mohdrasid@mohd-rasid01:/mnt/c/Windows/system32$ cat /proc/cgroups
-				#subsys_name    hierarchy       num_cgroups     enabled
-				cpuset  0       62      1
-				cpu     0       62      1
-				cpuacct 0       62      1
-				blkio   0       62      1
-				memory  0       62      1
-				devices 0       62      1
-				freezer 0       62      1
-				net_cls 0       62      1
-				perf_event      0       62      1
-				net_prio        0       62      1
-				hugetlb 0       62      1
-				pids    0       62      1
-				rdma    0       62      1
-  - Union Filesystem
-  - 
-
 				
 				|------------------------------------------------------------------------------------| 
 				|																			         |
