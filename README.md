@@ -10,11 +10,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 	- Namespace wraps the global system resource into an abstraction.
 	- Namespace creates **isolated instance** of that global resource and the resource is only accessible within that namespace.
 - control groups ( cgroups) -  resource constraints
-	- cat /proc/cgroups
 	- With cgroups, a container runtime is able to specify that a container should be able to use (for example):
 		- Use up to XX% of CPU cycles (cpu.shares)
 		- Use up to YY MB Memory (memory.limit_in_bytes)
 		- Throttle reads to ZZ MB/s (blkio.throttle.read_bps_device)
+	- cat /proc/cgroups
+
 
 				PS C:\Windows\system32> wsl -d Ubuntu
 				mohdrasid@mohd-rasid01:/mnt/c/Windows/system32$ cat /proc/cgroups
