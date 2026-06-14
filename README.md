@@ -84,14 +84,15 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 								-r--r--r--    1 root     root             0 Jun 13 22:33 rdma.current
 								-rw-r--r--    1 root     root             0 Jun 13 22:33 rdma.max
     - dedicated set of namespaces (to **isolate** what container can see)
-    			- pid = isolate the process tree and cannot see any other processes running on WSL host or other containers.
-    			- mnt = isolates file system and cannot see host's files.
-    			- net = islolate network stack and gets own **network interface , own IP adress & own routing tables**
-    			- uts = unix time-sharing system. Allows containers to have **own hostname & domain name**.
-    			- ipc = isolate **shared memory & message queues.**
-    			- cgroups = **hide hosts' cgroups limits.**
-    			- user = 
-          
+		
+		- pid = isolate the process tree and cannot see any other processes running on WSL host or other containers.
+		- mnt = isolates file system and cannot see host's files.
+		- net = islolate network stack and gets own **network interface , own IP adress & own routing tables**
+		- uts = unix time-sharing system. Allows containers to have **own hostname & domain name**.
+		- ipc = isolate **shared memory & message queues.**
+		- cgroups = **hide hosts' cgroups limits.**
+		- user = 
+  
     
 
  	- powershell => docker inspect --format '{{.State.Pid}}' 66b3eea05a79 = will return the PID=1117
