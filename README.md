@@ -12,6 +12,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
  	- when you create a container -> docker ask linux kernel to create -
     		- dedicated set of cgroups (to **limit** what container can use)
     			- **container gets a specific node(a folder) in the host's cgroup tree.**
+    			- docker run --rm -v /sys/fs/cgroup:/host-cgroups alpine ls -l /host-cgroups/docker/66b3eea05a792e1c8d8ad505d7cf291eb74e67a934a97b822cd498dc8ac94e05/
     			- open wsl instance then run => ls -l /sys/fs/cgroup/docker/66b3eea05a792e1c8d8ad505d7cf291eb74e67a934a97b822cd498dc8ac94e05
  
     							total 0
