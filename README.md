@@ -5,6 +5,9 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 - Linux fundamentals - Basic Linux commands
 - 
 # Linux building blocks = CGROUPS, NAMESPACES & UNION file system
+- https://securitylabs.datadoghq.com/articles/container-security-fundamentals-part-1/
+- https://securitylabs.datadoghq.com/articles/container-security-fundamentals-part-2/
+- 
 - Foundational linux kernel feature that docker is using to make the magic of containers happen and provide the isolation environment.
 - Namespaces - **isolation**
 	- Namespace wraps the global system resource into an abstraction.
