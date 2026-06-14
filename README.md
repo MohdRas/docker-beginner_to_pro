@@ -6,14 +6,111 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 - 
 # Linux building blocks = CGROUPS, NAMESPACES & UNION file system
 - Foundational linux kernel feature that docker is using to make the magic of containers happen and provide the isolation environment.
-- Namespaces - application isolation
+- Namespaces - **isolation**
 	- Namespace wraps the global system resource into an abstraction.
 	- Namespace creates **isolated instance** of that global resource and the resource is only accessible within that namespace.
+ 	- when you create a container -> docker ask linux kernel to create -
+    		- dedicated set of cgroups (to **limit** what container can use)
+    			- **container gets a specific node(a folder) in the host's cgroup tree.**
+    			- open wsl instance then run => ls -l /sys/fs/cgroup/docker/66b3eea05a792e1c8d8ad505d7cf291eb74e67a934a97b822cd498dc8ac94e05
+ 
+    							total 0
+								-r--r--r--    1 root     root             0 Jun 13 21:46 cgroup.controllers
+								-r--r--r--    1 root     root             0 Jun 13 21:46 cgroup.events
+								-rw-r--r--    1 root     root             0 Jun 13 21:46 cgroup.freeze
+								--w-------    1 root     root             0 Jun 13 22:33 cgroup.kill
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cgroup.max.depth
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cgroup.max.descendants
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cgroup.pressure
+								-rw-r--r--    1 root     root             0 Jun 13 21:46 cgroup.procs
+								-r--r--r--    1 root     root             0 Jun 13 22:33 cgroup.stat
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cgroup.subtree_control
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cgroup.threads
+								-rw-r--r--    1 root     root             0 Jun 13 21:46 cgroup.type
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cpu.idle
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cpu.max
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cpu.max.burst
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cpu.pressure
+								-r--r--r--    1 root     root             0 Jun 13 22:33 cpu.stat
+								-r--r--r--    1 root     root             0 Jun 13 22:33 cpu.stat.local
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cpu.weight
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cpu.weight.nice
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cpuset.cpus
+								-r--r--r--    1 root     root             0 Jun 13 22:33 cpuset.cpus.effective
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cpuset.cpus.partition
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 cpuset.mems
+								-r--r--r--    1 root     root             0 Jun 13 22:33 cpuset.mems.effective
+								-r--r--r--    1 root     root             0 Jun 13 22:33 hugetlb.1GB.current
+								-r--r--r--    1 root     root             0 Jun 13 22:33 hugetlb.1GB.events
+								-r--r--r--    1 root     root             0 Jun 13 22:33 hugetlb.1GB.events.local
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 hugetlb.1GB.max
+								-r--r--r--    1 root     root             0 Jun 13 22:33 hugetlb.1GB.numa_stat
+								-r--r--r--    1 root     root             0 Jun 13 22:33 hugetlb.1GB.rsvd.current
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 hugetlb.1GB.rsvd.max
+								-r--r--r--    1 root     root             0 Jun 13 22:33 hugetlb.2MB.current
+								-r--r--r--    1 root     root             0 Jun 13 22:33 hugetlb.2MB.events
+								-r--r--r--    1 root     root             0 Jun 13 22:33 hugetlb.2MB.events.local
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 hugetlb.2MB.max
+								-r--r--r--    1 root     root             0 Jun 13 22:33 hugetlb.2MB.numa_stat
+								-r--r--r--    1 root     root             0 Jun 13 22:33 hugetlb.2MB.rsvd.current
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 hugetlb.2MB.rsvd.max
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 io.latency
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 io.max
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 io.pressure
+								-r--r--r--    1 root     root             0 Jun 13 22:33 io.stat
+								-r--r--r--    1 root     root             0 Jun 13 22:33 memory.current
+								-r--r--r--    1 root     root             0 Jun 13 21:46 memory.events
+								-r--r--r--    1 root     root             0 Jun 13 22:33 memory.events.local
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 memory.high
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 memory.low
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 memory.max
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 memory.min
+								-r--r--r--    1 root     root             0 Jun 13 22:33 memory.numa_stat
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 memory.oom.group
+								-r--r--r--    1 root     root             0 Jun 13 22:33 memory.peak
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 memory.pressure
+								--w-------    1 root     root             0 Jun 13 22:33 memory.reclaim
+								-r--r--r--    1 root     root             0 Jun 13 22:33 memory.stat
+								-r--r--r--    1 root     root             0 Jun 13 22:33 memory.swap.current
+								-r--r--r--    1 root     root             0 Jun 13 22:33 memory.swap.events
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 memory.swap.high
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 memory.swap.max
+								-r--r--r--    1 root     root             0 Jun 13 22:33 memory.swap.peak
+								-r--r--r--    1 root     root             0 Jun 13 22:33 pids.current
+								-r--r--r--    1 root     root             0 Jun 13 22:33 pids.events
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 pids.max
+								-r--r--r--    1 root     root             0 Jun 13 22:33 pids.peak
+								-r--r--r--    1 root     root             0 Jun 13 22:33 rdma.current
+								-rw-r--r--    1 root     root             0 Jun 13 22:33 rdma.max
+  			- dedicated set of namespaces (to **isolate** what container can see)
+    			- pid = isolate the process tree and cannot see any other processes running on WSL host or other containers.
+    			- mnt = isolates file system and cannot see host's files.
+    			- net = islolate network stack and gets own **network interface , own IP adress & own routing tables**
+    			- uts = unix time-sharing system. Allows containers to have **own hostname & domain name**.
+    			- ipc = isolate **shared memory & message queues.**
+    			- cgroups = **hide hosts' cgroups limits.**
+    			- user = 
+          
+    
+
+ 	- powershell => docker inspect --format '{{.State.Pid}}' 66b3eea05a79 = will return the PID=1117
+	- powershell=> docker run --rm --privileged --pid=host alpine ls -l /proc/1117/ns/
+		
+				 	lrwxrwxrwx    1 root     root             0 Jun 13 22:09 cgroup -> cgroup:[4026532461]
+					lrwxrwxrwx    1 root     root             0 Jun 13 22:09 ipc -> ipc:[4026532459]
+					lrwxrwxrwx    1 root     root             0 Jun 13 22:09 mnt -> mnt:[4026532386]
+					lrwxrwxrwx    1 root     root             0 Jun 13 22:09 net -> net:[4026532463]
+					lrwxrwxrwx    1 root     root             0 Jun 13 22:09 pid -> pid:[4026532460]
+					lrwxrwxrwx    1 root     root             0 Jun 13 22:09 pid_for_children -> pid:[4026532460]
+					lrwxrwxrwx    1 root     root             0 Jun 13 22:09 time -> time:[4026531834]
+					lrwxrwxrwx    1 root     root             0 Jun 13 22:09 time_for_children -> time:[4026531834]
+					lrwxrwxrwx    1 root     root             0 Jun 13 22:09 user -> user:[4026531837]
+					lrwxrwxrwx    1 root     root             0 Jun 13 22:09 uts -> uts:[4026532399]
 - control groups ( cgroups) -  resource constraints
-	- With cgroups, a container runtime is able to specify that a container should be able to use (for example):
-		- Use up to XX% of CPU cycles (cpu.shares)
-		- Use up to YY MB Memory (memory.limit_in_bytes)
-		- Throttle reads to ZZ MB/s (blkio.throttle.read_bps_device)
+	- acounting & limiting the resources used by the processes.
+		- Use up to XX% of **CPU cycles** (cpu.shares) - CPU cgroups
+		- Use up to YY **MB Memory** (memory.limit_in_bytes) - Memory cgroups
+		- **Throttle** reads to ZZ MB/s (blkio.throttle.read_bps_device)
 	- cat /proc/cgroups
 
 
