@@ -134,6 +134,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 						 
 						
 		   **PID inside container**
+      
 						PS C:\Windows\system32> docker ps
 						CONTAINER ID   IMAGE                     COMMAND               CREATED             STATUS          PORTS                                         NAMES
 						9a30631d9cfa   demo-app-service:latest   "java -jar app.jar"   About an hour ago   Up 29 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   demo-app-service
