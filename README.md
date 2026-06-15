@@ -85,8 +85,10 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 								-r--r--r--    1 root     root             0 Jun 13 22:33 pids.peak
 								-r--r--r--    1 root     root             0 Jun 13 22:33 rdma.current
 								-rw-r--r--    1 root     root             0 Jun 13 22:33 rdma.max
+    
     - dedicated set of namespaces (to **isolate** what container can see)
-    	**Namespaces inside container**
+
+      	**Namespaces inside container**
       
       
 					PS C:\Windows\system32> docker debug 9a30631d9cfa
