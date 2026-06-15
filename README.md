@@ -7,8 +7,6 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 # Linux building blocks = CGROUPS, NAMESPACES & UNION file system
 - https://securitylabs.datadoghq.com/articles/container-security-fundamentals-part-1/
 - https://securitylabs.datadoghq.com/articles/container-security-fundamentals-part-2/
-- processes running under a distribution (docker desktop or Ubuntu): ps aux
-- processes running inside a container : ps aux
 - Foundational linux kernel feature that docker is using to make the magic of containers happen and provide the isolation environment.
 - Namespaces - **isolation**
 	- Namespace wraps the global system resource into an abstraction.
@@ -90,6 +88,9 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
     - dedicated set of namespaces (to **isolate** what container can see)
 		
 		- pid = isolate the process tree and cannot see any other processes running on WSL host or other containers.
+			- processes running under a distribution (docker desktop or Ubuntu): ps aux or top
+			- processes running inside a container : ps aux or top
+			- PIDs from above container & VM will differ.
 		- mnt = isolates file system and cannot see host's files.
 		- net = islolate network stack and gets own **network interface , own IP adress & own routing tables**
 		- uts = unix time-sharing system. Allows containers to have **own hostname & domain name**.
