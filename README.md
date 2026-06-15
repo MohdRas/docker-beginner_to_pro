@@ -88,9 +88,73 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
     - dedicated set of namespaces (to **isolate** what container can see)
 		
 		- pid = isolate the process tree and cannot see any other processes running on WSL host or other containers.
-			- processes running under a distribution (docker desktop or Ubuntu): ps aux or top
-			- processes running inside a container : ps aux or top
-			- PIDs from above container & VM will differ.
+			- process id inside a distribution (docker desktop or Ubuntu): ps aux or top
+			- process id inside a container : ps aux or top
+			- process id from a docker daemon : ps aux or top
+			- All 3 PIDs will be different.
+ 
+     		**PID inside a distribution ( docker desktop )**
+
+						PS C:\Windows\system32> wsl
+						docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Windows/system32# ps aux
+						PID   USER     TIME  COMMAND
+						    1 root      0:00 {init(docker-des} /init
+						    5 root      0:00 {init} plan9 --control-socket 6 --log-level 4 --server-fd 7 --pipe-fd 9 --log-truncate
+						    8 root      0:00 {SessionLeader} /init
+						    9 root      0:00 {Relay(10)} /init
+						   10 root      0:00 wsl-bootstrap run --base-image /c/Program Files/Docker/Docker/resources/docker-desktop.iso --cli-i
+						   11 root      0:01 {Relay(12)} /init
+						   12 root      0:00 /usr/bin/vpnkit-bridge --pid-file=/run/vpnkit-bridge.pid guest
+						   41 root      0:00 unshare -mpf --propagation=unchanged --kill-child /usr/local/bin/wsl-bootstrap jump
+						   42 root      0:00 /initd
+						   64 root      0:15 /initd services
+						   84 root      0:00 /bin/sh /usr/bin/rungetty.sh
+						   85 root      0:00 /bin/login -f
+						  108 root      0:00 -bash
+						  112 root      0:00 /sbin/rpc.statd -d -F
+						  113 100       0:00 /sbin/rpcbind -f
+						  114 root      0:04 /usr/bin/containerd --config /etc/containerd/containerd.toml
+						  134 root      0:06 /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+						  142 root      0:00 /usr/sbin/rpc.idmapd -f -p /run/rpc_pipefs
+						  398 root      0:00 /usr/bin/containerd-shim-runc-v2 -namespace moby -id 9a30631d9cfa1b27a00c41b962ed451cfcfe5f7c26ca3
+						  420 root      0:24 java -jar app.jar
+						 1231 root      0:00 {SessionLeader} /init
+						 1232 root      0:00 {Relay(1233)} /init
+						 1233 root      0:00 -sh
+						 1234 root      0:00 ps aux
+						 
+						 
+		   **PID from docker daemon ( dockerD )**
+						
+						PS C:\Windows\system32> docker ps
+						CONTAINER ID   IMAGE                     COMMAND               CREATED             STATUS          PORTS                                         NAMES
+						9a30631d9cfa   demo-app-service:latest   "java -jar app.jar"   About an hour ago   Up 32 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   demo-app-service
+						PS C:\Windows\system32> docker inspect -f '{{.State.Pid}}' demo-app-service
+						379
+						 
+						
+		   **PID inside container**
+						PS C:\Windows\system32> docker ps
+						CONTAINER ID   IMAGE                     COMMAND               CREATED             STATUS          PORTS                                         NAMES
+						9a30631d9cfa   demo-app-service:latest   "java -jar app.jar"   About an hour ago   Up 29 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   demo-app-service
+						PS C:\Windows\system32> docker debug 9a30631d9cfa
+						root@9a30631d9cfa /app [demo-app-service]
+						docker > ps aux
+						USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+						root         1  1.3  0.9 5769416 155024 ?      Ssl  07:06   0:24 java -jar app.jar
+						root        99  0.0  0.0   4828  2268 pts/0    Ss   07:36   0:00 /nix/var/nix/profiles/default/bin/bash -i
+						root       109  0.0  0.0   6676  3752 pts/0    R+   07:36   0:00 ps aux
+						root@9a30631d9cfa /app [demo-app-service]
+						docker > exit
+						exit
+						PS C:\Windows\system32> docker exec -it 9a30631d9cfa /bin/sh
+						/app # ps aux
+						PID   USER     TIME  COMMAND
+						    1 root      0:24 java -jar app.jar
+						  110 root      0:00 /bin/sh
+						  115 root      0:00 ps aux
+						/app #
+      
 		- mnt = isolates file system and cannot see host's files.
 		- net = islolate network stack and gets own **network interface , own IP adress & own routing tables**
 		- uts = unix time-sharing system. Allows containers to have **own hostname & domain name**.
