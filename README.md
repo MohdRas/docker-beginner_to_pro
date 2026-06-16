@@ -116,13 +116,13 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					PS C:\Windows\system32> docker inspect -f '{{.State.Pid}}' demo-app-service
 					379
       
-					PS C:\Windows\system32> docker run -it --rm --pid=host alpine /bin/sh
+					PS C:\Windows\system32> docker run -it --pid=host alpine /bin/sh
 
 					/ # ls -l /proc/379/ns/
  
 					OR
 
-					PS C:\Windows\system32> docker run --rm --pid=host nginx ls -l /proc/379/ns/
+					PS C:\Windows\system32> docker run --pid=host nginx ls -l /proc/379/ns/
 
 
 					total 0
