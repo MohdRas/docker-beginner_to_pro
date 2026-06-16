@@ -223,11 +223,39 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 		**Namespaces inside distribution (docker-desktop)**
 
 
+ 					processes under a distribution 
+					
+					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Windows/system32# ps aux
+					PID   USER     TIME  COMMAND
+					    1 root      0:00 {init(docker-des} /init
+					    5 root      0:00 {init} plan9 --control-socket 6 --log-level 4 --server-fd 7 --pipe-fd 9 --log-truncate
+					    8 root      0:00 {SessionLeader} /init
+					    9 root      0:00 {Relay(10)} /init
+					   10 root      0:01 wsl-bootstrap run --base-image /c/Program Files/Docker/Docker/resources/docker-desktop.iso --cli-i
+					   11 root      0:04 {Relay(12)} /init
+					   12 root      0:00 /usr/bin/vpnkit-bridge --pid-file=/run/vpnkit-bridge.pid guest
+					   41 root      0:00 unshare -mpf --propagation=unchanged --kill-child /usr/local/bin/wsl-bootstrap jump
+					   42 root      0:00 /initd
+					   64 root      0:36 /initd services
+					   84 root      0:00 /bin/sh /usr/bin/rungetty.sh
+					   85 root      0:00 /bin/login -f
+					  108 root      0:00 -bash
+					  112 root      0:00 /sbin/rpc.statd -d -F
+					  113 100       0:00 /sbin/rpcbind -f
+					  114 root      0:10 /usr/bin/containerd --config /etc/containerd/containerd.toml
+					  134 root      0:14 /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+					  142 root      0:00 /usr/sbin/rpc.idmapd -f -p /run/rpc_pipefs
+					  398 root      0:02 /usr/bin/containerd-shim-runc-v2 -namespace moby -id 9a30631d9cfa1b27a00c41b962ed451cfcfe5f7c26ca3
+					  420 root      0:31 java -jar app.jar
+					 1772 root      0:00 {SessionLeader} /init
+					 1773 root      0:00 {Relay(1774)} /init
+					 1774 root      0:00 -sh
+					 1776 root      0:00 ps aux
  
+      
 					Namespaces under a distribution
 					
 		    		docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Users/mohd.rasid.CORP# lsns
-					
 							NS TYPE   NPROCS   PID USER COMMAND
 					4026531834 time       41     1 root /init
 					4026531835 cgroup     27     1 root /init
@@ -256,45 +284,10 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					4026532530 mnt         2  3367 root /init
       
 
-
-
-		            processes under a distribution 
-					
-					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Windows/system32# ps aux
-
-					PID   USER     TIME  COMMAND
-					    1 root      0:00 {init(docker-des} /init
-					    5 root      0:00 {init} plan9 --control-socket 6 --log-level 4 --server-fd 7 --pipe-fd 9 --log-truncate
-					    8 root      0:00 {SessionLeader} /init
-					    9 root      0:00 {Relay(10)} /init
-					   10 root      0:01 wsl-bootstrap run --base-image /c/Program Files/Docker/Docker/resources/docker-desktop.iso --cli-i
-					   11 root      0:04 {Relay(12)} /init
-					   12 root      0:00 /usr/bin/vpnkit-bridge --pid-file=/run/vpnkit-bridge.pid guest
-					   41 root      0:00 unshare -mpf --propagation=unchanged --kill-child /usr/local/bin/wsl-bootstrap jump
-					   42 root      0:00 /initd
-					   64 root      0:36 /initd services
-					   84 root      0:00 /bin/sh /usr/bin/rungetty.sh
-					   85 root      0:00 /bin/login -f
-					  108 root      0:00 -bash
-					  112 root      0:00 /sbin/rpc.statd -d -F
-					  113 100       0:00 /sbin/rpcbind -f
-					  114 root      0:10 /usr/bin/containerd --config /etc/containerd/containerd.toml
-					  134 root      0:14 /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
-					  142 root      0:00 /usr/sbin/rpc.idmapd -f -p /run/rpc_pipefs
-					  398 root      0:02 /usr/bin/containerd-shim-runc-v2 -namespace moby -id 9a30631d9cfa1b27a00c41b962ed451cfcfe5f7c26ca3
-					  420 root      0:31 java -jar app.jar
-					 1772 root      0:00 {SessionLeader} /init
-					 1773 root      0:00 {Relay(1774)} /init
-					 1774 root      0:00 -sh
-					 1776 root      0:00 ps aux
-
-
-
  
       				Namespaces of a process 
 					
 					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Windows/system32# ls -l /proc/420/ns/
-
 					total 0
 					lrwxrwxrwx    1 root     root             0 Jun 15 07:14 cgroup -> cgroup:[4026532385]
 					lrwxrwxrwx    1 root     root             0 Jun 15 07:14 ipc -> ipc:[4026532383]
@@ -306,7 +299,20 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					lrwxrwxrwx    1 root     root             0 Jun 15 07:14 time_for_children -> time:[4026531834]
 					lrwxrwxrwx    1 root     root             0 Jun 15 07:14 user -> user:[4026531837]
 					lrwxrwxrwx    1 root     root             0 Jun 15 07:14 uts -> uts:[4026532382]
-					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 uts -> uts:[4026532382] 
+					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 uts -> uts:[4026532382]
+
+
+
+					Mount Namespace of PID = 420
+
+					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Users/mohd.rasid.CORP# nsenter --target 420 --mount ls /
+					__cacert_entrypoint.sh  app  bin  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+
+
+					Mount Namespace of PID = 2950
+
+					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Users/mohd.rasid.CORP# nsenter --target 2950 --mount ls /
+					bin  boot  dev  docker-entrypoint.d  docker-entrypoint.sh  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
 		
 		- pid = isolate the process tree and cannot see any other processes running on WSL host or other containers.
 			- process id inside a distribution (docker desktop or Ubuntu): ps aux or top
