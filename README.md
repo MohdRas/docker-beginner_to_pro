@@ -92,7 +92,9 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
       
       
 					PS C:\Windows\system32> docker debug 9a30631d9cfa
+
 					docker > ls -l /proc/1/ns/
+
 					total 0
 					lrwxrwxrwx 1 root root 0 Jun 15 08:47 cgroup -> 'cgroup:[4026532385]'
 					lrwxrwxrwx 1 root root 0 Jun 15 08:47 ipc -> 'ipc:[4026532383]'
@@ -113,7 +115,9 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 					PS C:\Windows\system32> docker inspect -f '{{.State.Pid}}' demo-app-service
 					379
+      
 					PS C:\Windows\system32> docker run -it --rm --pid=host alpine /bin/sh
+
 					/ # ls -l /proc/379/ns/
  
 					OR
@@ -137,6 +141,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 
 					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Windows/system32# ps aux
+
 					PID   USER     TIME  COMMAND
 					    1 root      0:00 {init(docker-des} /init
 					    5 root      0:00 {init} plan9 --control-socket 6 --log-level 4 --server-fd 7 --pipe-fd 9 --log-truncate
@@ -162,7 +167,9 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					 1773 root      0:00 {Relay(1774)} /init
 					 1774 root      0:00 -sh
 					 1776 root      0:00 ps aux
+      
 					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Windows/system32# ls -l /proc/420/ns/
+
 					total 0
 					lrwxrwxrwx    1 root     root             0 Jun 15 07:14 cgroup -> cgroup:[4026532385]
 					lrwxrwxrwx    1 root     root             0 Jun 15 07:14 ipc -> ipc:[4026532383]
@@ -187,7 +194,9 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 
 						PS C:\Windows\system32> wsl
+      
 						docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Windows/system32# ps aux
+      
 						PID   USER     TIME  COMMAND
 						    1 root      0:00 {init(docker-des} /init
 						    5 root      0:00 {init} plan9 --control-socket 6 --log-level 4 --server-fd 7 --pipe-fd 9 --log-truncate
@@ -222,6 +231,7 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 						PS C:\Windows\system32> docker ps
 						CONTAINER ID   IMAGE                     COMMAND               CREATED             STATUS          PORTS                                         NAMES
 						9a30631d9cfa   demo-app-service:latest   "java -jar app.jar"   About an hour ago   Up 32 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   demo-app-service
+      
 						PS C:\Windows\system32> docker inspect -f '{{.State.Pid}}' demo-app-service
 						379
 		
@@ -232,9 +242,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 						PS C:\Windows\system32> docker ps
 						CONTAINER ID   IMAGE                     COMMAND               CREATED             STATUS          PORTS                                         NAMES
 						9a30631d9cfa   demo-app-service:latest   "java -jar app.jar"   About an hour ago   Up 29 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   demo-app-service
+
 						PS C:\Windows\system32> docker debug 9a30631d9cfa
 						root@9a30631d9cfa /app [demo-app-service]
+
 						docker > ps aux
+
 						USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 						root         1  1.3  0.9 5769416 155024 ?      Ssl  07:06   0:24 java -jar app.jar
 						root        99  0.0  0.0   4828  2268 pts/0    Ss   07:36   0:00 /nix/var/nix/profiles/default/bin/bash -i
@@ -242,8 +255,10 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 						root@9a30631d9cfa /app [demo-app-service]
 						docker > exit
 						exit
+						
 						PS C:\Windows\system32> docker exec -it 9a30631d9cfa /bin/sh
 						/app # ps aux
+
 						PID   USER     TIME  COMMAND
 						    1 root      0:24 java -jar app.jar
 						  110 root      0:00 /bin/sh
