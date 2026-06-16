@@ -115,6 +115,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					379
 					PS C:\Windows\system32> docker run -it --rm --pid=host alpine /bin/sh
 					/ # ls -l /proc/379/ns/
+ 
+					OR
+
+					PS C:\Windows\system32> docker run --rm --pid=host nginx ls -l /proc/379/ns/
+
+
 					total 0
 					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 cgroup -> cgroup:[4026532385]
 					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 ipc -> ipc:[4026532383]
