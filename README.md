@@ -126,31 +126,71 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					root@9a30631d9cfa /app [demo-app-service]
 
 
-		**Namespaces inside VM**
-
-
-					PS C:\Windows\system32> docker inspect -f '{{.State.Pid}}' demo-app-service
-					379
-      
-					PS C:\Windows\system32> docker run -it --pid=host alpine /bin/sh
-
-					/ # ls -l /proc/379/ns/
+		**Namespaces inside VM or on the host**
  
-					OR
+						PID of a container on the host
+						C:\Users\mohd.rasid.CORP>docker inspect -f {{.State.Pid}} 93c573b321ee
+						2845
+ 
+						PID of a container on the host
+						C:\Users\mohd.rasid.CORP>docker inspect -f {{.State.Pid}} 9a30631d9cfa
+						379
+ 
+						Running a container on a host PID
+						C:\Users\mohd.rasid.CORP>docker run -it --pid=host nginx /bin/sh
 
-					PS C:\Windows\system32> docker run --pid=host nginx ls -l /proc/379/ns/
-
-
-					total 0
-					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 cgroup -> cgroup:[4026532385]
-					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 ipc -> ipc:[4026532383]
-					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 mnt -> mnt:[4026532381]
-					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 net -> net:[4026532386]
-					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 pid -> pid:[4026532384]
-					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 pid_for_children -> pid:[4026532384]
-					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 time -> time:[4026531834]
-					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 time_for_children -> time:[4026531834]
-					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 user -> user:[4026531837]
+      					All Namespaces on the host
+						# lsns
+						        NS TYPE   NPROCS   PID USER COMMAND
+						4026531834 time        4   379 root java -jar app.jar
+						4026531837 user        4   379 root java -jar app.jar
+						4026532289 pid         2  4840 root /bin/sh
+						4026532381 mnt         1   379 root java -jar app.jar
+						4026532382 uts         1   379 root java -jar app.jar
+						4026532383 ipc         1   379 root java -jar app.jar
+						4026532384 pid         1   379 root java -jar app.jar
+						4026532385 cgroup      1   379 root java -jar app.jar
+						4026532386 net         1   379 root java -jar app.jar
+						4026532456 mnt         1  2845 root nginx: master process nginx -g daemon off;
+						4026532457 uts         1  2845 root nginx: master process nginx -g daemon off;
+						4026532458 ipc         1  2845 root nginx: master process nginx -g daemon off;
+						4026532459 pid         1  2845 root nginx: master process nginx -g daemon off;
+						4026532460 cgroup      1  2845 root nginx: master process nginx -g daemon off;
+						4026532461 net         1  2845 root nginx: master process nginx -g daemon off;
+						4026532532 mnt         2  4840 root /bin/sh
+						4026532533 uts         2  4840 root /bin/sh
+						4026532534 ipc         2  4840 root /bin/sh
+						4026532535 cgroup      2  4840 root /bin/sh
+						4026532536 net         2  4840 root /bin/sh
+ 
+      					Namespaces of a process ( PID = 2845 )
+						# ls -l /proc/2845/ns/
+						total 0
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 cgroup -> 'cgroup:[4026532460]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 ipc -> 'ipc:[4026532458]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 mnt -> 'mnt:[4026532456]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 net -> 'net:[4026532461]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 pid -> 'pid:[4026532459]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:26 pid_for_children -> 'pid:[4026532459]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 time -> 'time:[4026531834]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:26 time_for_children -> 'time:[4026531834]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 user -> 'user:[4026531837]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 uts -> 'uts:[4026532457]'
+ 
+      					Namespaces of a process ( PID = 379 )
+						# ls -l /proc/379/ns/
+						total 0
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 cgroup -> 'cgroup:[4026532385]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 ipc -> 'ipc:[4026532383]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 mnt -> 'mnt:[4026532381]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 net -> 'net:[4026532386]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 pid -> 'pid:[4026532384]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:26 pid_for_children -> 'pid:[4026532384]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 time -> 'time:[4026531834]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:26 time_for_children -> 'time:[4026531834]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 user -> 'user:[4026531837]'
+						lrwxrwxrwx 1 root root 0 Jun 16 07:25 uts -> 'uts:[4026532382]'
+						#
 
 
 		**Namespaces inside distribution (docker-desktop)**
