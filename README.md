@@ -90,10 +90,24 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
       	**Namespaces inside container**
       
-      
+      				Debug a container or open a shell inside a container
 					PS C:\Windows\system32> docker debug 9a30631d9cfa
- 
-		    		Namespaces of a process ( PID =1 )  - 
+
+      				All Namespaces inside container
+					docker > lsns
+					        NS TYPE   NPROCS   PID USER COMMAND
+					4026531834 time        3     1 root java -jar app.jar
+					4026531837 user        3     1 root java -jar app.jar
+					4026532381 mnt         1     1 root java -jar app.jar
+					4026532382 uts         3     1 root java -jar app.jar
+					4026532383 ipc         3     1 root java -jar app.jar
+					4026532384 pid         3     1 root java -jar app.jar
+					4026532385 cgroup      3     1 root java -jar app.jar
+					4026532386 net         3     1 root java -jar app.jar
+					4026532606 mnt         2   199 root /nix/var/nix/profiles/default/bin/bash -i
+					root@9a30631d9cfa /app [demo-app-service]
+
+		    		Namespaces of a process ( PID=1 ) 
 					docker > ls -l /proc/1/ns/
 
 					total 0
@@ -111,21 +125,6 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					docker >
  
 					
-		    		All Namespaces inside container - 
-					docker > lsns
-					        NS TYPE   NPROCS   PID USER COMMAND
-					4026531834 time        3     1 root java -jar app.jar
-					4026531837 user        3     1 root java -jar app.jar
-					4026532381 mnt         1     1 root java -jar app.jar
-					4026532382 uts         3     1 root java -jar app.jar
-					4026532383 ipc         3     1 root java -jar app.jar
-					4026532384 pid         3     1 root java -jar app.jar
-					4026532385 cgroup      3     1 root java -jar app.jar
-					4026532386 net         3     1 root java -jar app.jar
-					4026532606 mnt         2   199 root /nix/var/nix/profiles/default/bin/bash -i
-					root@9a30631d9cfa /app [demo-app-service]
-
-
 		**Namespaces inside VM or on the host**
  
 						PID of a container on the host
