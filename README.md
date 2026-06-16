@@ -92,7 +92,8 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
       
       
 					PS C:\Windows\system32> docker debug 9a30631d9cfa
-
+ 
+		    		Namespaces of a process ( PID =1 )  - 
 					docker > ls -l /proc/1/ns/
 
 					total 0
@@ -108,6 +109,21 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					lrwxrwxrwx 1 root root 0 Jun 15 08:47 uts -> 'uts:[4026532382]'
 					root@9a30631d9cfa /app [demo-app-service]
 					docker >
+ 
+					
+		    		All Namespaces inside container - 
+					docker > lsns
+					        NS TYPE   NPROCS   PID USER COMMAND
+					4026531834 time        3     1 root java -jar app.jar
+					4026531837 user        3     1 root java -jar app.jar
+					4026532381 mnt         1     1 root java -jar app.jar
+					4026532382 uts         3     1 root java -jar app.jar
+					4026532383 ipc         3     1 root java -jar app.jar
+					4026532384 pid         3     1 root java -jar app.jar
+					4026532385 cgroup      3     1 root java -jar app.jar
+					4026532386 net         3     1 root java -jar app.jar
+					4026532606 mnt         2   199 root /nix/var/nix/profiles/default/bin/bash -i
+					root@9a30631d9cfa /app [demo-app-service]
 
 
 		**Namespaces inside VM**
