@@ -177,6 +177,8 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 			- All 3 PIDs will be different.
  
      		**PID inside a distribution ( docker desktop )**
+      			- 420 root      0:24 java -jar app.jar
+
 
 						PS C:\Windows\system32> wsl
 						docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Windows/system32# ps aux
@@ -208,15 +210,18 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 						 
 						 
 		   **PID from docker daemon ( dockerD )**
+      			- 379 ( PID )
+
 						
 						PS C:\Windows\system32> docker ps
 						CONTAINER ID   IMAGE                     COMMAND               CREATED             STATUS          PORTS                                         NAMES
 						9a30631d9cfa   demo-app-service:latest   "java -jar app.jar"   About an hour ago   Up 32 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   demo-app-service
 						PS C:\Windows\system32> docker inspect -f '{{.State.Pid}}' demo-app-service
 						379
-						 
+		
 						
 		   **PID inside container**
+      		- 1 root      0:24 java -jar app.jar
       
 						PS C:\Windows\system32> docker ps
 						CONTAINER ID   IMAGE                     COMMAND               CREATED             STATUS          PORTS                                         NAMES
