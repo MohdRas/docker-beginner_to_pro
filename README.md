@@ -137,9 +137,40 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					lrwxrwxrwx    1 root     root             0 Jun 15 08:39 user -> user:[4026531837]
 
 
-		**Namespaces inside host**
+		**Namespaces inside distribution (docker-desktop)**
+ 
+					Namespaces under a distribution - 
+		    		docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Users/mohd.rasid.CORP# lsns
+					
+							NS TYPE   NPROCS   PID USER COMMAND
+					4026531834 time       41     1 root /init
+					4026531835 cgroup     27     1 root /init
+					4026531837 user       41     1 root /init
+					4026531840 net        15     1 root /init
+					4026532206 ipc        27     1 root /init
+					4026532217 mnt        12     1 root /init
+					4026532218 uts        27     1 root /init
+					4026532219 pid        15     1 root /init
+					4026532229 net        12    42 root /initd
+					4026532288 mnt        13    41 root unshare -mpf --propagation=unchanged --kill-child /usr/local/bin/wsl-bootstrap jump
+					4026532289 pid        12    42 root └─/initd
+					4026532290 net         0       root
+					4026532381 mnt         1   420 root java -jar app.jar
+					4026532382 uts         1   420 root java -jar app.jar
+					4026532383 ipc         1   420 root java -jar app.jar
+					4026532384 pid         1   420 root java -jar app.jar
+					4026532385 cgroup      1   420 root java -jar app.jar
+					4026532386 net         1   420 root java -jar app.jar
+					4026532456 mnt        13  2950 root nginx: master process nginx -g daemon off;
+					4026532457 uts        13  2950 root nginx: master process nginx -g daemon off;
+					4026532458 ipc        13  2950 root nginx: master process nginx -g daemon off;
+					4026532459 pid        13  2950 root nginx: master process nginx -g daemon off;
+					4026532460 cgroup     13  2950 root nginx: master process nginx -g daemon off;
+					4026532461 net        13  2950 root nginx: master process nginx -g daemon off;
+					4026532530 mnt         2  3367 root /init
+      
 
-
+		            processes under a distribution - 
 					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Windows/system32# ps aux
 
 					PID   USER     TIME  COMMAND
@@ -167,7 +198,8 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					 1773 root      0:00 {Relay(1774)} /init
 					 1774 root      0:00 -sh
 					 1776 root      0:00 ps aux
-      
+ 
+      				Namespaces of a process - 
 					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Windows/system32# ls -l /proc/420/ns/
 
 					total 0
