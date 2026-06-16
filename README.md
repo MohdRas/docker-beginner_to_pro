@@ -91,9 +91,13 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
       	**Namespaces inside container**
       
       				Debug a container or open a shell inside a container
+      
 					PS C:\Windows\system32> docker debug 9a30631d9cfa
 
+
+		
       				All Namespaces inside container
+      
 					docker > lsns
 					        NS TYPE   NPROCS   PID USER COMMAND
 					4026531834 time        3     1 root java -jar app.jar
@@ -107,7 +111,10 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					4026532606 mnt         2   199 root /nix/var/nix/profiles/default/bin/bash -i
 					root@9a30631d9cfa /app [demo-app-service]
 
+
+
 		    		Namespaces of a process ( PID=1 ) 
+					
 					docker > ls -l /proc/1/ns/
 
 					total 0
@@ -126,19 +133,33 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
  
 					
 		**Namespaces inside VM or on the host**
+
  
-						PID of a container on the host
+						PID of a container 93c573b321ee on the host
+						
 						C:\Users\mohd.rasid.CORP>docker inspect -f {{.State.Pid}} 93c573b321ee
 						2845
+
+
+
  
-						PID of a container on the host
+						PID of a container 9a30631d9cfa on the host
+						
 						C:\Users\mohd.rasid.CORP>docker inspect -f {{.State.Pid}} 9a30631d9cfa
 						379
+
+
+
  
 						Running a container on a host PID
+						
 						C:\Users\mohd.rasid.CORP>docker run -it --pid=host nginx /bin/sh
 
+
+
+
       					All Namespaces on the host
+						
 						# lsns
 						        NS TYPE   NPROCS   PID USER COMMAND
 						4026531834 time        4   379 root java -jar app.jar
@@ -161,8 +182,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 						4026532534 ipc         2  4840 root /bin/sh
 						4026532535 cgroup      2  4840 root /bin/sh
 						4026532536 net         2  4840 root /bin/sh
+
+
+
  
       					Namespaces of a process ( PID = 2845 )
+						
 						# ls -l /proc/2845/ns/
 						total 0
 						lrwxrwxrwx 1 root root 0 Jun 16 07:25 cgroup -> 'cgroup:[4026532460]'
@@ -175,8 +200,11 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 						lrwxrwxrwx 1 root root 0 Jun 16 07:26 time_for_children -> 'time:[4026531834]'
 						lrwxrwxrwx 1 root root 0 Jun 16 07:25 user -> 'user:[4026531837]'
 						lrwxrwxrwx 1 root root 0 Jun 16 07:25 uts -> 'uts:[4026532457]'
+
+
  
       					Namespaces of a process ( PID = 379 )
+						
 						# ls -l /proc/379/ns/
 						total 0
 						lrwxrwxrwx 1 root root 0 Jun 16 07:25 cgroup -> 'cgroup:[4026532385]'
@@ -193,8 +221,11 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 
 		**Namespaces inside distribution (docker-desktop)**
+
+
  
-					Namespaces under a distribution - 
+					Namespaces under a distribution
+					
 		    		docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Users/mohd.rasid.CORP# lsns
 					
 							NS TYPE   NPROCS   PID USER COMMAND
@@ -225,7 +256,10 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					4026532530 mnt         2  3367 root /init
       
 
-		            processes under a distribution - 
+
+
+		            processes under a distribution 
+					
 					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Windows/system32# ps aux
 
 					PID   USER     TIME  COMMAND
@@ -253,8 +287,12 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 					 1773 root      0:00 {Relay(1774)} /init
 					 1774 root      0:00 -sh
 					 1776 root      0:00 ps aux
+
+
+
  
-      				Namespaces of a process - 
+      				Namespaces of a process 
+					
 					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Windows/system32# ls -l /proc/420/ns/
 
 					total 0
