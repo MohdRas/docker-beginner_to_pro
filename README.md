@@ -218,6 +218,19 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 						lrwxrwxrwx 1 root root 0 Jun 16 07:25 user -> 'user:[4026531837]'
 						lrwxrwxrwx 1 root root 0 Jun 16 07:25 uts -> 'uts:[4026532382]'
 						#
+ 
+
+
+
+  						utc namespace
+      					host name : random
+						C:\Users\mohd.rasid.CORP>docker run -it nginx /bin/bash
+						root@8d3bea0162dc:/# exit
+						exit
+ 
+						host name : docker-desktop as we have given --uts = host
+						C:\Users\mohd.rasid.CORP>docker run -it --uts=host nginx /bin/bash
+						root@docker-desktop:/#
 
 
 		**Namespaces inside distribution (docker-desktop)**
@@ -303,16 +316,47 @@ https://www.youtube.com/watch?v=RqTEHSBrYFw&amp;t=2886s
 
 
 
+
 					Mount Namespace of PID = 420
 
 					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Users/mohd.rasid.CORP# nsenter --target 420 --mount ls /
 					__cacert_entrypoint.sh  app  bin  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
 
 
+
+
 					Mount Namespace of PID = 2950
 
 					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Users/mohd.rasid.CORP# nsenter --target 2950 --mount ls /
 					bin  boot  dev  docker-entrypoint.d  docker-entrypoint.sh  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+
+
+
+		            Net Namespace of PID = 2950
+      
+					docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Users/mohd.rasid.CORP# nsenter --target 2950 -n ip addr
+					1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
+					    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+					    inet 127.0.0.1/8 scope host lo
+					       valid_lft forever preferred_lft forever
+					    inet6 ::1/128 scope host
+					       valid_lft forever preferred_lft forever
+					2: eth0@if33: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP
+					    link/ether a6:b1:6e:25:27:42 brd ff:ff:ff:ff:ff:ff
+					    inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
+					       valid_lft forever preferred_lft forever
+
+
+
+ 					Net Namespace PORT of PID = 2950
+      
+      				docker-desktop:/tmp/docker-desktop-root/mnt/host/c/Users/mohd.rasid.CORP# netstat -tunap
+					Active Internet connections (servers and established)
+					Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+					tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      2950/nginx: master
+					tcp        0      0 :::80                   :::*                    LISTEN      2950/nginx: master
+
+					
 		
 		- pid = isolate the process tree and cannot see any other processes running on WSL host or other containers.
 			- process id inside a distribution (docker desktop or Ubuntu): ps aux or top
