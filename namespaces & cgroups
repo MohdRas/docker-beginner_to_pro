@@ -1,0 +1,99 @@
+- Namespace wraps the global system resource into an abstraction.
+- Namespace creates **isolated instance** of that global resource and the resource is only accessible within that namespace.
+- pid namespace - provides dedicated space for process IDs, ensuring that container processes remain unware of any external processes.
+- net namespace - isolates network stack, giving each container its own networking environment.
+- mnt namespace - provide distict file system hierarchy, shielding container from the host's filesystem structure.
+- uts namespace - allowing containers to have thier own hostname and domain name. independent of the host system.
+- ips namespace - safeguard inter-process communication resources, preventing inteference between containers.
+- user namespace - ensuring isolation of user & group IDS, allowing secure mapping between container & host identities. Docker does not enable the user namespace bydefault.
+	
+	
+	
+if ps not found inside container in nginx container - 
+apt-get update && apt-get install procps
+ps aux
+
+ipcs -m = find shared memory inside container
+
+ip addr =  find ip address of the container
+
+id = user of the container
+
+--------------------privileged ubuntu shell-------------------------------
+docker run -it --rm --privileged ubuntu bash ( --privileged is needed inorder to create namespaces inside container)
+
+----------------------------- unshare uts----------------------------------
+
+unshare --uts /bin/bash  ( create a new uts namespace with shell as /bin/bash)
+hostname
+hostname my-uts-host
+exit
+hostname
+
+----------------------------- unshare pid----------------------------------
+unshare --pid --fork --mount-proc /bin/bash ( create a new pid namespace with shell as /bin/bash) ( --mount-proc is needed else ps aux wont work inside pid namespace)
+ps aux ( ps aux or top command did not ask the kernel for list of processes rather its looks for virtual directory /proc)
+
+exit
+
+----------------------------- unshare net----------------------------------
+
+unshare --net /bin/bash
+ip addr
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+	
+	
+----------------------------- unshare uts ipc pid net----------------------------------
+
+unshare --uts --ipc --pid --fork --mount-proc --net /bin/bash
+
+
+----------------------------- unshare mnt----------------------------------
+unshare -m /bin/bash ( create mnt namespace & open shell bash)
+mkdir /secret_drive ( make directory secret_drive inside curreny folder of the shell)
+mount -t tmpfs none /secret_drive ( mount temporary files to secret_drive folder and name it none)
+df -h | grep secret_drive ( disk free in human readable format and filter only folder secret_drive)
+
+
+ 
+terminal -1 ( host )
+docker run -it --rm --pid=host ubuntu /bin/sh ( run ubuntu shell with pid as host)
+
+ps -fC nginx ( nginx process filtering)
+
+terminal -2 ( container )
+docker run -d nginx:1.23.1
+
+terminal -1 ( host )
+ps -fC nginx ( nginx process filtering)
+ps -ef --forest ( hierarchy of processes)
+
+we can use the /proc filesystem to get more information about our running containers.
+The /proc filesystem in Linux is a virtual or pseudo filesystem. It doesn’t contain real files.
+
+ls /proc ( will show the pid of the container)
+
+ls proc/2109/root ( directory structure of a container)
+
+touch /proc/2109/root/new_file.txt
+
+
+terminal -2 ( container )
+docker ps
+docker debug 4ef0e2977564
+echo "hello world new file" > /new_file.txt
+cat new_file.txt  ( hello world new file ) 
+
+
+terminal -1 ( host )
+kill 2109
+
+terminal -2 ( container )
+docker ps  ( no result for the above container)
+
+
+
+
+
+
