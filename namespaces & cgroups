@@ -7,23 +7,53 @@
 - ips namespace - safeguard inter-process communication resources, preventing inteference between containers.
 - user namespace - ensuring isolation of user & group IDS, allowing secure mapping between container & host identities. Docker does not enable the user namespace bydefault.
 	
+===================inside container======================
+docker debug <container_id>
+
+Mount namespace: ls /proc/self/root | cat /proc/self/mountinfo
+Network namespace: ip a | ip addr
+PID namespace: ps -ef | ps aux | ps -fC nginx
+UTS namespace: hostname
+IPC namespace: ipcs -a
+User namespace: id | cat /proc/self/uid_map
+Cgroup namespace: cat /proc/self/cgroup
+All environment vars: cat /proc/self/environ
+current working directory inside the container: ls /proc/self/cwd
+Network‑namespace view: ls /proc/self/net/
+Directory of namespace: ls /proc/540/ns/
+
+
+
+
+===============host================
+docker run -it --rm --privileged ubuntu bash
+
+
+Mount namespace: findmnt -N 540 | ls /proc/540/root | cat /proc/540/mountinfo | nsenter --target 2723 --mount ls /
+Network namespace: ip a | ip addr
+PID namespace: ps aux | ps -ef | ps -ef --forest
+IPC namespace: ipcs -a
+UTS namespace: hostname
+User namespace: id | cat /proc/540/uid_map
+Cgroup namespace: cat /proc/540/cgroup
+All environment vars: cat /proc/540/environ
+current working directory inside the container: ls /proc/540/cwd
+Network‑namespace view: ls /proc/540/net/
+Directory of namespace: ls /proc/540/ns/
+
+
 	
-	
-if ps not found inside container in nginx container - 
-apt-get update && apt-get install procps
-ps aux
-
-ipcs -m = find shared memory inside container
-
-ip addr =  find ip address of the container
-
+=======inside container=====================
+ps aux ( pt-get update && apt-get install procps )
+ipcs = Message Queues | Shared Memory Segments | Semaphore Arrays 
+ip addr = ip address of container
 id = user of the container
 
 --------------------privileged ubuntu shell-------------------------------
 docker run -it --rm --privileged ubuntu bash ( --privileged is needed inorder to create namespaces inside container)
 
------------------------------ unshare uts----------------------------------
 
+----------------------------- unshare uts----------------------------------
 unshare --uts /bin/bash  ( create a new uts namespace with shell as /bin/bash)
 hostname
 hostname my-uts-host
@@ -31,13 +61,11 @@ exit
 hostname
 
 ----------------------------- unshare pid----------------------------------
-unshare --pid --fork --mount-proc /bin/bash ( create a new pid namespace with shell as /bin/bash) ( --mount-proc is needed else ps aux wont work inside pid namespace)
+unshare --pid --fork --mount-proc /bin/bash    ( create a new pid namespace with shell as /bin/bash and --mount-proc is needed else ps aux wont work inside pid namespace)
 ps aux ( ps aux or top command did not ask the kernel for list of processes rather its looks for virtual directory /proc)
-
 exit
 
 ----------------------------- unshare net----------------------------------
-
 unshare --net /bin/bash
 ip addr
 1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
@@ -45,7 +73,6 @@ ip addr
 	
 	
 ----------------------------- unshare uts ipc pid net----------------------------------
-
 unshare --uts --ipc --pid --fork --mount-proc --net /bin/bash
 
 
@@ -57,25 +84,18 @@ df -h | grep secret_drive ( disk free in human readable format and filter only f
 
 
  
-terminal -1 ( host )
+( host )
 docker run -it --rm --pid=host ubuntu /bin/sh ( run ubuntu shell with pid as host)
-
 ps -fC nginx ( nginx process filtering)
 
-terminal -2 ( container )
+( container )
 docker run -d nginx:1.23.1
 
-terminal -1 ( host )
+( host )
 ps -fC nginx ( nginx process filtering)
 ps -ef --forest ( hierarchy of processes)
-
-we can use the /proc filesystem to get more information about our running containers.
-The /proc filesystem in Linux is a virtual or pseudo filesystem. It doesn’t contain real files.
-
 ls /proc ( will show the pid of the container)
-
 ls proc/2109/root ( directory structure of a container)
-
 touch /proc/2109/root/new_file.txt
 
 
@@ -91,6 +111,26 @@ kill 2109
 
 terminal -2 ( container )
 docker ps  ( no result for the above container)
+
+
+
+
+When using the mnt namespace, a new set of filesystem mounts is provided for the process
+terminal -1 ( host )
+findmnt -N 2723
+cat /proc/2723/mountinfo
+nsenter --target 2723 --mount ls / ( Operation not permitted)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
