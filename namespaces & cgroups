@@ -10,12 +10,12 @@
 ===================inside container======================
 docker debug <container_id>
 
-Mount namespace: ls /proc/self/root **||** cat /proc/self/mountinfo
-Network namespace: ip a **||** ip addr
-PID namespace: ps -ef **||** ps aux **||** ps -fC nginx
+Mount namespace: ls /proc/self/root || cat /proc/self/mountinfo
+Network namespace: ip a || ip addr
+PID namespace: ps -ef || ps aux || ps -fC nginx
 UTS namespace: hostname
 IPC namespace: ipcs -a
-User namespace: id **||** cat /proc/self/uid_map
+User namespace: id || cat /proc/self/uid_map
 Cgroup namespace: cat /proc/self/cgroup
 All environment vars: cat /proc/self/environ
 current working directory inside the container: ls /proc/self/cwd
@@ -35,12 +35,12 @@ docker run --rm -it --pid=host --net=host --privileged nicolaka/netshoot /bin/sh
 
 
 
-Mount namespace: findmnt -N 540 **||** ls /proc/540/root **||** cat /proc/540/mountinfo **||** nsenter --target 540 --mount ls /
-Network namespace: ip a **||** ip addr **||** nsenter -t 540 -n ip a **||** nsenter -t 540 -n ss -tuln
-PID namespace: ps aux **||** ps -ef **||** ps -ef --forest **||** nsenter -t 540 -p ps -ef **||** nsenter -t 540 -m -p ps -ef ( -m means container's mount)
-IPC namespace: ipcs -a **||** nsenter -t 540 -i ipcs -a
-UTS namespace: hostname **||** nsenter -t 540 -u hostname
-User namespace: id **||** cat /proc/540/uid_map
+Mount namespace: findmnt -N 540 || ls /proc/540/root || cat /proc/540/mountinfo || nsenter --target 540 --mount ls /
+Network namespace: ip a || ip addr || nsenter -t 540 -n ip a || nsenter -t 540 -n ss -tuln
+PID namespace: ps aux || ps -ef || ps -ef --forest || nsenter -t 540 -p ps -ef || nsenter -t 540 -m -p ps -ef ( -m means container's mount)
+IPC namespace: ipcs -a || nsenter -t 540 -i ipcs -a
+UTS namespace: hostname || nsenter -t 540 -u hostname
+User namespace: id || cat /proc/540/uid_map
 Cgroup namespace: cat /proc/540/cgroup
 All environment vars: cat /proc/540/environ
 current working directory inside the container: ls /proc/540/cwd
@@ -51,7 +51,7 @@ Directory of namespace: ls /proc/540/ns/
 
 =======inside container=====================
 ps aux ( pt-get update && apt-get install procps )
-ipcs = Message Queues **||** Shared Memory Segments **||** Semaphore Arrays 
+ipcs = Message Queues || Shared Memory Segments || Semaphore Arrays 
 ip addr = ip address of container
 id = user of the container
 
@@ -86,7 +86,7 @@ unshare --uts --ipc --pid --fork --mount-proc --net /bin/bash
 unshare -m /bin/bash ( create mnt namespace & open shell bash)
 mkdir /secret_drive ( make directory secret_drive inside curreny folder of the shell)
 mount -t tmpfs none /secret_drive ( mount temporary files to secret_drive folder and name it none)
-df -h **||** grep secret_drive ( disk free in human readable format and filter only folder secret_drive)
+df -h || grep secret_drive ( disk free in human readable format and filter only folder secret_drive)
 
 
  
