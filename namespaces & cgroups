@@ -129,6 +129,13 @@ nsenter --target 540 --mount ls /
 
 
 
+================== container with pid of another container==========================
+docker run -d --name=webserver nginx                                                             ("webserver" container)
+docker run -it --name=debug --pid=container:webserver raesene/alpine-containertools /bin/bash    ( "debug" container)
+ps -ef                                                      ( processes from "webserver" & "debug" container )
+
+
+
 
 
 
