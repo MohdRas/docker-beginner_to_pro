@@ -67,13 +67,13 @@ exit
 hostname
 
 ----------------------------- unshare pid----------------------------------
-unshare --pid --fork --mount-proc /bin/bash    ( create a new pid namespace with shell as /bin/bash and --mount-proc is needed else ps aux wont work inside pid namespace)
-ps aux ( ps aux or top command did not ask the kernel for list of processes rather its looks for virtual directory /proc)
+unshare --pid --fork --mount-proc /bin/bash                                ( create a new pid namespace with shell as /bin/bash and --mount-proc is needed else ps aux wont work inside pid namespace)
+ps aux  || ps -ef                                                          ( ps aux or top command did not ask the kernel for list of processes rather its looks for virtual directory /proc)
 exit
 
 ----------------------------- unshare net----------------------------------
 unshare --net /bin/bash
-ip addr
+ip addr || ip a
 1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
 	
@@ -83,25 +83,25 @@ unshare --uts --ipc --pid --fork --mount-proc --net /bin/bash
 
 
 ----------------------------- unshare mnt----------------------------------
-unshare -m /bin/bash ( create mnt namespace & open shell bash)
-mkdir /secret_drive ( make directory secret_drive inside curreny folder of the shell)
-mount -t tmpfs none /secret_drive ( mount temporary files to secret_drive folder and name it none)
-df -h || grep secret_drive ( disk free in human readable format and filter only folder secret_drive)
+unshare -m /bin/bash                                                                          ( create mnt namespace & open shell bash)
+mkdir /secret_drive                                                                           ( make directory secret_drive inside curreny folder of the shell)
+mount -t tmpfs none /secret_drive                                                             ( mount temporary files to secret_drive folder and name it none)
+df -h || grep secret_drive                                                                    ( disk free in human readable format and filter only folder secret_drive)
 
 
  
 ( host )
-docker run -it --rm --pid=host ubuntu /bin/sh ( run ubuntu shell with pid as host)
-ps -fC nginx ( nginx process filtering)
+docker run -it --rm --pid=host ubuntu /bin/sh                                                 ( run ubuntu shell with pid as host)
+ps -fC nginx || ps -ef                                                                        ( nginx process filtering)
 
 ( container )
 docker run -d nginx:1.23.1
 
 ( host )
-ps -fC nginx ( nginx process filtering)
-ps -ef --forest ( hierarchy of processes)
-ls /proc ( will show the pid of the container)
-ls proc/2109/root ( directory structure of a container)
+ps -fC nginx                                                                                  ( nginx process filtering)
+ps -ef --forest                                                                               ( hierarchy of processes)
+ls /proc                                                                                      ( will show the pid of the container)
+ls proc/2109/root                                                                             ( directory structure of a container)
 touch /proc/2109/root/new_file.txt
 
 
@@ -109,14 +109,14 @@ terminal -2 ( container )
 docker ps
 docker debug 4ef0e2977564
 echo "hello world new file" > /new_file.txt
-cat new_file.txt  ( hello world new file ) 
+cat new_file.txt                                                                              ( hello world new file ) 
 
 
 terminal -1 ( host )
 kill 2109
 
 terminal -2 ( container )
-docker ps  ( no result for the above container)
+docker ps                                                                                     ( no result for the above container)
 
 
 
